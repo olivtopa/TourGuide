@@ -1,4 +1,4 @@
-package tourGuide.service;
+package tourGuide.api;
 
 
 import tourGuide.user.User;
@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Interface for user services
- * Its implementation is in tourGuide.service.UserServiceImpl.
+ * Its implementation is in tourGuide.api.UserServiceImpl.
  */
 public interface UserService {
 

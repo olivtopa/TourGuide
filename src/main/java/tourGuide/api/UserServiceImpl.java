@@ -1,10 +1,12 @@
-package tourGuide.service;
+package tourGuide.api;
 
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import tourGuide.model.LocationExtended;
+import tourGuide.model.VisitedLocationExtended;
 import tourGuide.user.User;
 
 import java.time.LocalDateTime;
@@ -19,7 +21,7 @@ import java.util.stream.IntStream;
  */
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private static final boolean DEFAULT_LOCATION_HISTORY_ACTIVATED = true;
     private static final int DEFAULT_INTERNAL_USER_NUMBER = 100;
@@ -110,8 +112,8 @@ public class UserServiceImpl implements UserService{
     private void generateUserLocationHistory(User user) {
         logger.debug("generateUserLocationHistory with userName = " + user.getUserName());
         IntStream.range(0, 3).forEach(i-> {
-            user.addToVisitedLocations(new VisitedLocation(user.getUserId(),
-                    new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));
+            user.addToVisitedLocations(new VisitedLocationExtended(user.getUserId(),
+                    new LocationExtended(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));
         });
     }
 

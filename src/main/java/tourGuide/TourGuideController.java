@@ -1,83 +1,81 @@
 package tourGuide;
 
-import java.util.List;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import tourGuide.api.TourGuideService;
+import tourGuide.api.UserService;
+import tourGuide.model.ProviderExtended;
+import tourGuide.model.VisitedLocationExtended;
 
-import com.jsoniter.output.JsonStream;
+import java.util.List;
 
-import gpsUtil.location.VisitedLocation;
-import tourGuide.service.TourGuideService;
-import tourGuide.service.UserService;
-import tourGuide.user.User;
-import tripPricer.Provider;
-
+/**
+ * API class for tourguide methods
+ */
 @RestController
 public class TourGuideController {
 
-	@Autowired
-	TourGuideService tourGuideService;
-    @Autowired
-    private UserService userService;
-	
-    @RequestMapping("/")
-    public String index() {
-        return "Greetings from TourGuide!";
+    @Autowired private TourGuideService tourGuideService;
+    @Autowired private UserService userService;
+    @Autowired private ObjectMapper objectMapper;
+
+    @GetMapping("/")
+    public String welcome() {
+        return "Welcome at the TourGuide application !";
     }
-    
-    @RequestMapping("/getLocation") 
-    public String getLocation(@RequestParam String userName) throws JsonProcessingException {
-    	VisitedLocation visitedLocation = tourGuideService.getUserLocation(userService.getUser(userName));
-		return JsonStream.serialize(visitedLocation.location);
+
+    /**
+     * Gets the last know visited location for a given user. Based on user visited location history.
+     * @param userName the name of the user whose last location is requested.
+     * @return String JSON formatted user last location.
+     */
+    @GetMapping("/getLastLocation")
+    public String getLastLocation(@RequestParam String userName) throws JsonProcessingException {
+        VisitedLocationExtended visitedLocation = tourGuideService.getLastUserLocation(userService.getUser(userName));
+        return objectMapper.writeValueAsString(visitedLocation.location);
     }
-    
-    //  DONE: Change this method to no longer return a List of Attractions.
- 	//  Instead: Get the closest five tourist attractions to the user - no matter how far away they are.
- 	//  Return a new JSON object that contains:
-    	// Name of Tourist attraction,
-        // Tourist attractions lat/long, 
-        // The user's location lat/long, 
-        // The distance in miles between the user's location and each of the attractions.
-        // The reward points for visiting each Attraction.
-        //    Note: Attraction reward points can be gathered from RewardsCentral
-    @RequestMapping("/getNearbyAttractions") 
-    public String getNearbyAttractions(@RequestParam String userName) {
-    	VisitedLocation visitedLocation = tourGuideService.getUserLocation(getUser(userName));
-    	return JsonStream.serialize(tourGuideService.getNearByAttractions(visitedLocation));
+
+    /**
+     * Gets the 5 attractions which are the closest to the user's location, regardless of their distance from him.
+     * @param userName the name of the user to be considered for the research.
+     * @return String JSON formatted attraction nearby list (id, name, attraction location, user location, distance, reward points).
+     */
+    @GetMapping("/getNearbyAttractions")
+    public String getNearbyAttractions(@RequestParam String userName) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(tourGuideService.getNearByAttractions(userName));
     }
-    
-    @RequestMapping("/getRewards") 
-    public String getRewards(@RequestParam String userName) {
-    	return JsonStream.serialize(tourGuideService.getUserRewards(getUser(userName)));
+
+    /**
+     * Gets the list of all rewards for a given user.
+     * @param userName the name of the user whose reward list is requested.
+     * @return String JSON formatted reward list.
+     */
+    @GetMapping("/getRewards")
+    public String getRewards(@RequestParam String userName) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(tourGuideService.getUserRewards(userService.getUser(userName)));
     }
-    
-    @RequestMapping("/getAllCurrentLocations")
-    public String getAllCurrentLocations() {
-    	// TODO: Get a list of every user's most recent location as JSON
-    	//- Note: does not use gpsUtil to query for their current location, 
-    	//        but rather gathers the user's current location from their stored location history.
-    	//
-    	// Return object should be the just a JSON mapping of userId to Locations similar to:
-    	//     {
-    	//        "019b04a9-067a-4c76-8817-ee75088c3822": {"longitude":-48.188821,"latitude":74.84371} 
-    	//        ...
-    	//     }
-    	
-    	return JsonStream.serialize("");
+
+    /**
+     * Gets the last know visited location for all users. Based on user visited location history.
+     * @return String JSON formatted map with user name as key and last location as value.
+     */
+    @GetMapping("/getAllLastLocations")
+    public String getAllLastLocations() throws JsonProcessingException {
+        return objectMapper.writeValueAsString(tourGuideService.getLastLocationAllUsers());
     }
-    
-    @RequestMapping("/getTripDeals")
-    public String getTripDeals(@RequestParam String userName) {
-    	List<Provider> providers = tourGuideService.getTripDeals(getUser(userName));
-    	return JsonStream.serialize(providers);
-    }
-    
-    private User getUser(String userName) {
-    	return tourGuideService.getUser(userName);
+
+    /**
+     * Gets the proposed trips for a given user. Based on user preferences.
+     * @return String JSON formatted list of providers (name, price and id).
+     */
+    @GetMapping("/getTripDeals")
+    public String getTripDeals(@RequestParam String userName) throws JsonProcessingException {
+        List<ProviderExtended> providers = tourGuideService.getTripDeals(userService.getUser(userName));
+        return objectMapper.writeValueAsString(providers);
     }
    
 
