@@ -38,7 +38,7 @@ public class RewardsService {
 		proximityBuffer = defaultProximityBuffer;
 	}
 	
-	public void calculateRewards(User user) {
+	public void calculateRewards(@org.jetbrains.annotations.NotNull User user) {
 		List<VisitedLocation> userLocations = new ArrayList<> (user.getVisitedLocations());
 		List<Attraction> attractions = gpsUtil.getAttractions();
 
