@@ -43,7 +43,7 @@ public class RewardsService {
 		List<Attraction> attractions = gpsUtil.getAttractions();
 
 		for(VisitedLocation visitedLocation : userLocations) {
-			ExecutorService executor = Executors.newFixedThreadPool(2)
+			ExecutorService executor = Executors.newFixedThreadPool(2);
 			CompletableFuture[] objects = attractions.stream().map(attraction -> {
 				CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(()-> {
 					if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
