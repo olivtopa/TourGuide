@@ -54,8 +54,7 @@ public class RewardsService {
 					}});
 				return completableFuture;
 			}).toArray(CompletableFuture[]::new);
-			CompletableFuture.allOf(objects).join();
-			}
+		}
 	}
 	
 	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
