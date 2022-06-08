@@ -88,11 +88,18 @@ public class TestPerformance {
 		allUsers = tourGuideService.getAllUsers();
 		allUsers.forEach(u -> u.addToVisitedLocations(new VisitedLocation(u.getUserId(), attraction, new Date())));
 	     
-	    allUsers.forEach(u -> rewardsService.calculateRewards(u));// a remplacer par un thread (voir CompletableFuture)
+	    allUsers.forEach(u -> rewardsService.calculateRewards(u));
 	    
-		for(User user : allUsers) {
-			assertTrue(user.getUserRewards().size() > 0);
+		for(User user:allUsers){
+			while(user.getUserRewards().isEmpty()){
+				try {
+					TimeUnit.MILLISECONDS.sleep(100);
+				}catch (InterruptedException e) {
+					e.getCause();
+				}
+			}
 		}
+
 		stopWatch.stop();
 		tourGuideService.tracker.stopTracking();
 
