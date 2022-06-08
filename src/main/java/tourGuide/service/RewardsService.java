@@ -2,9 +2,7 @@ package tourGuide.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.*;
 
 import org.springframework.stereotype.Service;
 
@@ -45,13 +43,14 @@ public class RewardsService {
 		List<Attraction> attractions = gpsUtil.getAttractions();
 
 		for(VisitedLocation visitedLocation : userLocations) {
+			ExecutorService executor = Executors.newFixedThreadPool(2)
 			CompletableFuture[] objects = attractions.stream().map(attraction -> {
 				CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(()-> {
 					if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
 						if(nearAttraction(visitedLocation, attraction)) {
 							user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
 						}
-					}});
+					}},executor);
 				return completableFuture;
 			}).toArray(CompletableFuture[]::new);
 		}
