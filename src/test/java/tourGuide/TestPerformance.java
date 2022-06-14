@@ -79,7 +79,7 @@ public class TestPerformance {
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 
 		// Users should be incremented up to 100,000, and test finishes within 20 minutes
-		InternalTestHelper.setInternalUserNumber(10000);
+		InternalTestHelper.setInternalUserNumber(100000);
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
@@ -92,11 +92,11 @@ public class TestPerformance {
 	    allUsers.forEach(rewardsService::calculateRewards);
 
 		// delay ensuring complete treatment of users without rewards
-		for(User user:allUsers){
-			while(user.getUserRewards().isEmpty()){
+		for(User user:allUsers) {
+			while (user.getUserRewards().isEmpty()) {
 				try {
 					TimeUnit.MILLISECONDS.sleep(100);
-				}catch (InterruptedException e) {
+				} catch (InterruptedException e) {
 					e.getCause();
 				}
 			}
