@@ -88,7 +88,7 @@ public class TourGuideService {
 
 		public VisitedLocation trackUserLocation (User user) throws ExecutionException, InterruptedException {
 		CompletableFuture<VisitedLocation> cf = new CompletableFuture<>();
-			CompletableFuture
+			cf = CompletableFuture
 					.supplyAsync(() -> gpsUtil.getUserLocation(user.getUserId()))
 					.thenApply(visitedLocation -> {
 						user.addToVisitedLocations(visitedLocation);
