@@ -70,7 +70,7 @@ public class TestPerformance {
 			CompletableFuture<VisitedLocation> cfVisitedLocation = tourGuideService.trackUserLocation(user);
 			cf.add(cfVisitedLocation);
 		}
-		CompletableFuture.allOf(cf.toArray(new CompletableFuture[0])).join();
+		CompletableFuture.allOf(cf.toArray(new CompletableFuture[cf.size()])).join();
 
 			stopWatch.stop();
 			tourGuideService.tracker.stopTracking();
