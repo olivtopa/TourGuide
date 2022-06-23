@@ -17,12 +17,15 @@ import tourGuide.user.UserReward;
 @Service
 public class RewardsService {
     private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
+	private GpsUtil gpsUtil;
+	List<Attraction> attractions = gpsUtil.getAttractions();
+	ExecutorService executor = Executors.newFixedThreadPool(10);
 
 	// proximity in miles
     private int defaultProximityBuffer = 10;
 	private int proximityBuffer = defaultProximityBuffer;
 	private int attractionProximityRange = 200;
-	private final GpsUtil gpsUtil;
+
 	private final RewardCentral rewardsCentral;
 	
 	public RewardsService(GpsUtil gpsUtil, RewardCentral rewardCentral) {
@@ -40,10 +43,10 @@ public class RewardsService {
 	
 	public void calculateRewards(@org.jetbrains.annotations.NotNull User user) {
 		List<VisitedLocation> userLocations = new ArrayList<> (user.getVisitedLocations());
-		List<Attraction> attractions = gpsUtil.getAttractions();
+		//List<Attraction> attractions = gpsUtil.getAttractions();
 
 		for(VisitedLocation visitedLocation : userLocations) {
-			CompletableFuture[] objects = attractions.stream().map(attraction -> {
+			attractions.stream().map(attraction -> {
 				CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(()-> {
 					if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
 						if(nearAttraction(visitedLocation, attraction)) {
@@ -51,7 +54,8 @@ public class RewardsService {
 						}
 					}});
 				return completableFuture;
-			}).toArray(CompletableFuture[]::new);
+			});
+
 		}
 	}
 	
