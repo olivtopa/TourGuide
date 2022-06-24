@@ -53,7 +53,7 @@ public class RewardsService {
 						if(nearAttraction(visitedLocation, attraction)) {
 							user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
 						}
-					}});
+					}},executor);
 				return completableFuture;
 			});
 
