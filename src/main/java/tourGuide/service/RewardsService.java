@@ -18,7 +18,8 @@ import tourGuide.user.UserReward;
 public class RewardsService {
     private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
 	private GpsUtil gpsUtil;
-	List<Attraction> attractions = gpsUtil.getAttractions();
+	GpsUtil newAttractions = new GpsUtil();
+	List<Attraction> attractions= newAttractions.getAttractions();
 	ExecutorService executor = Executors.newFixedThreadPool(10);
 
 	// proximity in miles
@@ -46,7 +47,7 @@ public class RewardsService {
 		//List<Attraction> attractions = gpsUtil.getAttractions();
 
 		for(VisitedLocation visitedLocation : userLocations) {
-			attractions.stream().map(attraction -> {
+			this.attractions.stream().map(attraction -> {
 				CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(()-> {
 					if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
 						if(nearAttraction(visitedLocation, attraction)) {
