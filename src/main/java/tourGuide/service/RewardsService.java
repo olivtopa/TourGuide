@@ -19,8 +19,8 @@ public class RewardsService {
     private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
 	private GpsUtil gpsUtil;
 	GpsUtil newAttractions = new GpsUtil();
-	List<Attraction> attractions= newAttractions.getAttractions();
-	ExecutorService executor = Executors.newFixedThreadPool(10);
+	private final List<Attraction> attractions= newAttractions.getAttractions();
+	private final ExecutorService executor = Executors.newFixedThreadPool(100);
 
 	// proximity in miles
     private int defaultProximityBuffer = 10;
@@ -28,7 +28,7 @@ public class RewardsService {
 	private int attractionProximityRange = 200;
 
 	private final RewardCentral rewardsCentral;
-	
+
 	public RewardsService(GpsUtil gpsUtil, RewardCentral rewardCentral) {
 		this.gpsUtil = gpsUtil;
 		this.rewardsCentral = rewardCentral;
@@ -44,20 +44,21 @@ public class RewardsService {
 	
 	public void calculateRewards(@org.jetbrains.annotations.NotNull User user) {
 		List<VisitedLocation> userLocations = new ArrayList<> (user.getVisitedLocations());
-		//List<Attraction> attractions = gpsUtil.getAttractions();
+
 
 		for(VisitedLocation visitedLocation : userLocations) {
-			this.attractions.stream().map(attraction -> {
-				CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(()-> {
-					if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
-						if(nearAttraction(visitedLocation, attraction)) {
-							user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
-						}
-					}},executor);
-				return completableFuture;
-			});
+			this.attractions.stream().forEach(attraction -> {
 
-		}
+					if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
+						if (nearAttraction(visitedLocation, attraction)) {
+
+							CompletableFuture.runAsync(() ->
+									user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user))), executor);
+						}
+					}
+
+			});
+		};
 	}
 	
 	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
