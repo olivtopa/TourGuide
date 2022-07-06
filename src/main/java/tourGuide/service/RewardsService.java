@@ -20,7 +20,7 @@ public class RewardsService {
 	private GpsUtil gpsUtil;
 	GpsUtil newAttractions = new GpsUtil();
 	private final List<Attraction> attractions= newAttractions.getAttractions();
-	private final ExecutorService executor = Executors.newFixedThreadPool(100);
+	private final ExecutorService executor = Executors.newFixedThreadPool(70);
 
 	// proximity in miles
     private int defaultProximityBuffer = 10;
@@ -51,12 +51,10 @@ public class RewardsService {
 
 					if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
 						if (nearAttraction(visitedLocation, attraction)) {
-
 							CompletableFuture.runAsync(() ->
 									user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user))), executor);
 						}
 					}
-
 			});
 		};
 	}

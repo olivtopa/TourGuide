@@ -5,6 +5,8 @@ import javax.money.Monetary;
 
 import org.javamoney.moneta.Money;
 
+import java.util.UUID;
+
 
 public class UserPreferences {
 	
@@ -16,10 +18,12 @@ public class UserPreferences {
 	private int ticketQuantity = 1;
 	private int numberOfAdults = 1;
 	private int numberOfChildren = 0;
-	
+	private User user;
+
 	public UserPreferences() {
 	}
-	
+
+
 	public void setAttractionProximity(int attractionProximity) {
 		this.attractionProximity = attractionProximity;
 	}
