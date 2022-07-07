@@ -4,23 +4,30 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.jsoniter.output.JsonStream;
 
 import gpsUtil.location.VisitedLocation;
 import tourGuide.service.TourGuideService;
+import tourGuide.service.UserPreferencesService;
 import tourGuide.user.User;
+import tourGuide.user.UserPreferences;
 import tripPricer.Provider;
 
 @RestController
 public class TourGuideController {
+    private static Logger logger = LoggerFactory.getLogger(TourGuideController.class);
+
+
 
 	@Autowired
 	TourGuideService tourGuideService;
+    @Autowired
+    UserPreferencesService userPreferencesService;
 	
     @RequestMapping("/")
     public String index() {
@@ -67,7 +74,7 @@ public class TourGuideController {
     	
     	return JsonStream.serialize("");
     }
-    
+
     @RequestMapping("/getTripDeals")
     public String getTripDeals(@RequestParam String userName) {
     	List<Provider> providers = tourGuideService.getTripDeals(getUser(userName));
@@ -77,6 +84,12 @@ public class TourGuideController {
     private User getUser(String userName) {
     	return tourGuideService.getUser(userName);
     }
-   
+
+    @PutMapping(value = "/userPreferences")
+    public void updateUserPreferences(@RequestBody UserPreferences newPreferences){
+        logger.info("PUT Request to modify users preferences");
+        userPreferencesService.update(newPreferences);
+
+    }
 
 }
