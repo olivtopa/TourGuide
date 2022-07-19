@@ -1,7 +1,6 @@
 package tourGuide;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.slf4j.Logger;
@@ -13,7 +12,6 @@ import com.jsoniter.output.JsonStream;
 
 import gpsUtil.location.VisitedLocation;
 import tourGuide.service.TourGuideService;
-import tourGuide.service.UserPreferencesService;
 import tourGuide.user.User;
 import tourGuide.user.UserPreferences;
 import tripPricer.Provider;
@@ -26,9 +24,7 @@ public class TourGuideController {
 
 	@Autowired
 	TourGuideService tourGuideService;
-    @Autowired
-    UserPreferencesService userPreferencesService;
-	
+    	
     @RequestMapping("/")
     public String index() {
         return "Greetings from TourGuide!";
@@ -86,9 +82,10 @@ public class TourGuideController {
     }
 
     @PutMapping(value = "/userPreferences")
-    public void updateUserPreferences(@RequestBody UserPreferences newPreferences){
+    public void updateUserPreferences(@RequestBody UserPreferences newPreferences, String userName){
         logger.info("PUT Request to modify users preferences");
-        userPreferencesService.update(newPreferences);
+        tourGuideService.getUser(userName).setUserPreferences(newPreferences);
+
 
     }
 
