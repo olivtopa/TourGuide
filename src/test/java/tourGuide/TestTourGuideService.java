@@ -111,20 +111,23 @@ public class TestTourGuideService {
 		
 		assertEquals(5, attractions.size());
 	}
-	
+	@Test
 	public void getTripDeals() {
+		//GIVEN
 		GpsUtil gpsUtil = new GpsUtil();
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
-		InternalTestHelper.setInternalUserNumber(0);
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
-		
-		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+		InternalTestHelper.setInternalUserNumber(0);
+		String userName = tourGuideService.getUser("internalUser1").getUserName();
+		tourGuideService.getUser(userName).getUserPreferences().setNumberOfChildren(2);
+		int nbOfChildren = tourGuideService.getUser(userName).getUserPreferences().getNumberOfChildren();
 
-		List<Provider> providers = tourGuideService.getTripDeals(user);
-		
-		tourGuideService.tracker.stopTracking();
-		
-		assertEquals(10, providers.size());
+		//WHEN
+		tourGuideService.getTripDeals(tourGuideService.getUser(userName));
+
+		//THEN
+		assertEquals(2,tourGuideService.getUser(userName).getUserPreferences().getNumberOfChildren());
+
 	}
 	
 	
