@@ -1,8 +1,5 @@
 package tourGuide;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -20,6 +17,8 @@ import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
 import tripPricer.Provider;
+
+import static org.junit.Assert.*;
 
 public class TestTourGuideService {
 
@@ -123,10 +122,10 @@ public class TestTourGuideService {
 		int nbOfChildren = tourGuideService.getUser(userName).getUserPreferences().getNumberOfChildren();
 
 		//WHEN
-		tourGuideService.getTripDeals(tourGuideService.getUser(userName));
+		List< Provider> listOfProvider = tourGuideService.getTripDeals(tourGuideService.getUser(userName));
 
 		//THEN
-		assertEquals(2,tourGuideService.getUser(userName).getUserPreferences().getNumberOfChildren());
+		assertNotNull(listOfProvider);
 
 	}
 	
