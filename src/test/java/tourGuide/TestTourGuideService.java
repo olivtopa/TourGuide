@@ -117,7 +117,7 @@ public class TestTourGuideService {
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 		InternalTestHelper.setInternalUserNumber(0);
-		String userName = tourGuideService.getUser("internalUser1").getUserName();
+		String userName = "internalUser1";
 		tourGuideService.getUser(userName).getUserPreferences().setNumberOfChildren(2);
 		int nbOfChildren = tourGuideService.getUser(userName).getUserPreferences().getNumberOfChildren();
 
