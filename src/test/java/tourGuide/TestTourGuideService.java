@@ -126,6 +126,7 @@ public class TestTourGuideService {
 
 		//THEN
 		assertNotNull(listOfProvider);
+		assertFalse(listOfProvider.isEmpty());
 
 	}
 	
