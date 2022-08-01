@@ -84,9 +84,7 @@ public class TourGuideController {
     @PutMapping(value = "/userPreferences")
     public void updateUserPreferences(@RequestBody UserPreferences newPreferences, String userName){
         logger.info("PUT Request to modify users preferences");
-        tourGuideService.getUser(userName).setUserPreferences(newPreferences);
-
-
+        tourGuideService.updateUserPreferences(userName,newPreferences);
     }
 
 }
