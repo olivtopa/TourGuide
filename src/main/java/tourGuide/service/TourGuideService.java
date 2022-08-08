@@ -2,13 +2,7 @@ package tourGuide.service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -24,6 +18,7 @@ import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
+import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.tracker.Tracker;
 import tourGuide.user.User;
@@ -41,6 +36,7 @@ public class TourGuideService {
 	public final Tracker tracker;
 	boolean testMode = true;
 	private final ExecutorService executor = Executors.newFixedThreadPool(70);
+	private final RewardCentral rewardCentral= new RewardCentral();
 	
 	public TourGuideService(GpsUtil gpsUtil, RewardsService rewardsService) {
 		this.gpsUtil = gpsUtil;
@@ -110,7 +106,6 @@ public class TourGuideService {
 				nearbyAttractions.add(attraction);
 			}
 		}
-		
 		return nearbyAttractions;
 	}
 	
@@ -124,6 +119,34 @@ public class TourGuideService {
 
 	public void updateUserPreferences(String userName, UserPreferences newPreferences){
 		getUser(userName).setUserPreferences(newPreferences);
+	}
+
+
+
+	public List<Attraction> the5NearestAttractions(String userName,VisitedLocation visitedLocation){
+		List<Attraction> attractions = new ArrayList<>(getNearByAttractions(visitedLocation));
+		RewardsService rewardsService = new RewardsService(gpsUtil,rewardCentral);
+		int nbAttractions = attractions.size();
+		ArrayList<Double> distances= new ArrayList<>();
+		Double min = distances.get(0);
+		//attractions.stream().forEach(attraction ->{
+		for (int i=0; i< nbAttractions; i++){
+			try {
+				double distance=rewardsService.getDistance(getUserLocation(getUser(userName)).location,getUser(userName).getLastVisitedLocation().location);
+				distances.add(distance);
+				if (distances.get(i) < min){
+					min = distances.get(i);
+				}
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			Collections.sort(distances);
+		};
+
+		return null;
+
 	}
 	
 	/**********************************************************************************
