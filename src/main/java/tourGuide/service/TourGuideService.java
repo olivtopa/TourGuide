@@ -121,33 +121,30 @@ public class TourGuideService {
 		getUser(userName).setUserPreferences(newPreferences);
 	}
 
-
-
-	public List<Attraction> the5NearestAttractions(String userName,VisitedLocation visitedLocation){
+	public Map<Attraction,Double> the5NearestAttractions(String userName){
+		VisitedLocation visitedLocation = getUser(userName).getLastVisitedLocation();
 		List<Attraction> attractions = new ArrayList<>(getNearByAttractions(visitedLocation));
-		RewardsService rewardsService = new RewardsService(gpsUtil,rewardCentral);
-		int nbAttractions = attractions.size();
 		ArrayList<Double> distances= new ArrayList<>();
-		Double min = distances.get(0);
-		//attractions.stream().forEach(attraction ->{
-		for (int i=0; i< nbAttractions; i++){
-			try {
-				double distance=rewardsService.getDistance(getUserLocation(getUser(userName)).location,getUser(userName).getLastVisitedLocation().location);
-				distances.add(distance);
-				if (distances.get(i) < min){
-					min = distances.get(i);
-				}
-			} catch (ExecutionException e) {
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			Collections.sort(distances);
-		};
+		final Map<Attraction, Double> distanceAttractions = new HashMap<>();
+		final Map<Attraction, Double> the5Attractions = new HashMap<>();
 
-		return null;
+		IntStream.range(0,attractions.size()).forEach(i-> {
 
+			double distance = rewardsService.getDistance(visitedLocation.location, attractions.get(i));
+			distanceAttractions.put(attractions.get(i),distance);
+		});
+
+		List<Map.Entry<Attraction,Double>> distanceOfAttrationList = new ArrayList<>(distanceAttractions.entrySet());
+		distanceOfAttrationList.sort(Map.Entry.comparingByValue());
+		for (int i=0; i<5; i++){
+			the5Attractions.put(distanceOfAttrationList.get(i).getKey(),distanceOfAttrationList.get(i).getValue());
+
+		}
+		return the5Attractions;
 	}
+
+
+
 	
 	/**********************************************************************************
 	 * 
