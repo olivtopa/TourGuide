@@ -124,7 +124,6 @@ public class TourGuideService {
 	public Map<Attraction,Double> the5NearestAttractions(String userName){
 		VisitedLocation visitedLocation = getUser(userName).getLastVisitedLocation();
 		List<Attraction> attractions = new ArrayList<>(getNearByAttractions(visitedLocation));
-		ArrayList<Double> distances= new ArrayList<>();
 		final Map<Attraction, Double> distanceAttractions = new HashMap<>();
 		final Map<Attraction, Double> the5Attractions = new HashMap<>();
 
