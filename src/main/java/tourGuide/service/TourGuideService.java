@@ -123,7 +123,7 @@ public class TourGuideService {
 
 	public Map<Attraction,Double> the5NearestAttractions(String userName){
 		VisitedLocation visitedLocation = getUser(userName).getLastVisitedLocation();
-		List<Attraction> attractions = new ArrayList<>(getNearByAttractions(visitedLocation));
+		List<Attraction> attractions = new ArrayList<>(gpsUtil.getAttractions());
 		final Map<Attraction, Double> distanceAttractions = new HashMap<>();
 		final Map<Attraction, Double> the5Attractions = new HashMap<>();
 

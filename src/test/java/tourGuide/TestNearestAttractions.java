@@ -28,7 +28,9 @@ public class TestNearestAttractions {
         Map<Attraction,Double> resultat = tourGuideService.the5NearestAttractions("internalUser1");
 
         //Then
-        Assert.assertNull(resultat.get(5));
+        Assert.assertNotNull(resultat);
+        Assert.assertEquals(5,resultat.size());
+
 
     }
 
