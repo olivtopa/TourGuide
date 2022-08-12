@@ -137,7 +137,6 @@ public class TourGuideService {
 		distanceOfAttrationList.sort(Map.Entry.comparingByValue());
 		for (int i=0; i<5; i++){
 			the5Attractions.put(distanceOfAttrationList.get(i).getKey(),distanceOfAttrationList.get(i).getValue());
-
 		}
 		return the5Attractions;
 	}
