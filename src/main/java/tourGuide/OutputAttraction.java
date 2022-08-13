@@ -10,35 +10,22 @@ public class OutputAttraction {
 
     Attraction attraction ;
     String attractionName ;
-    Double longitudee ;
+    Double longitude ;
     Double latitude ;
-    Long distance ;
+    Double distance ;
     int rewardsPoint;
 
-
-
-    public Attraction getAttraction() {
-        return attraction;
-    }
-
-    public void setAttraction(Attraction attraction) {
-        this.attraction = attraction;
-    }
-
-    public String getAttractionName() {
-        return attractionName;
-    }
 
     public void setAttractionName(String attractionName) {
         this.attractionName = attractionName;
     }
 
     public Double getLongitudee() {
-        return longitudee;
+        return longitude;
     }
 
     public void setLongitudee(Double longitudee) {
-        this.longitudee = longitudee;
+        this.longitude = longitudee;
     }
 
     public Double getLatitude() {
@@ -49,11 +36,11 @@ public class OutputAttraction {
         this.latitude = latitude;
     }
 
-    public Long getDistance() {
+    public Double getDistance() {
         return distance;
     }
 
-    public void setDistance(Long distance) {
+    public void setDistance(Double distance) {
         this.distance = distance;
     }
 
@@ -70,7 +57,7 @@ public class OutputAttraction {
         return "OutputAttraction{" +
                 "attraction=" + attraction +
                 ", attractionName='" + attractionName + '\'' +
-                ", longitudee=" + longitudee +
+                ", longitudee=" + longitude +
                 ", latitude=" + latitude +
                 ", distance=" + distance +
                 ", rewardsPoint=" + rewardsPoint +

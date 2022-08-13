@@ -25,7 +25,8 @@ public class TestNearestAttractions {
         String userName = "internalUser1";
 
         //When
-        Map<Attraction,Double> resultat = tourGuideService.the5NearestAttractions("internalUser1");
+        List<OutputAttraction> resultat = tourGuideService.the5NearestAttractions("internalUser1");
+        System.out.println(resultat);
 
         //Then
         Assert.assertNotNull(resultat);

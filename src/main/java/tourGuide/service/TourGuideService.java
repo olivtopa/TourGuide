@@ -19,6 +19,7 @@ import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
+import tourGuide.OutputAttraction;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.tracker.Tracker;
 import tourGuide.user.User;
@@ -121,7 +122,11 @@ public class TourGuideService {
 		getUser(userName).setUserPreferences(newPreferences);
 	}
 
-	public Map<Attraction,Double> the5NearestAttractions(String userName){
+	public List<OutputAttraction> the5NearestAttractions(String userName){
+
+		//Map<Attraction, Double> output = new HashMap<>();
+		OutputAttraction output = new OutputAttraction();
+		//Map<Attraction,Double> the5NearestAttractions(String userName){
 		VisitedLocation visitedLocation = getUser(userName).getLastVisitedLocation();
 		List<Attraction> attractions = new ArrayList<>(gpsUtil.getAttractions());
 		final Map<Attraction, Double> distanceAttractions = new HashMap<>();
@@ -135,15 +140,21 @@ public class TourGuideService {
 
 		List<Map.Entry<Attraction,Double>> distanceOfAttrationList = new ArrayList<>(distanceAttractions.entrySet());
 		distanceOfAttrationList.sort(Map.Entry.comparingByValue());
+		List<OutputAttraction> outputList = new ArrayList<>();
 		for (int i=0; i<5; i++){
 			the5Attractions.put(distanceOfAttrationList.get(i).getKey(),distanceOfAttrationList.get(i).getValue());
+			output.setAttractionName(distanceOfAttrationList.get(i).getKey().attractionName);
+			output.setLongitudee(distanceOfAttrationList.get(i).getKey().longitude);
+			output.setLatitude(distanceOfAttrationList.get(i).getKey().latitude);
+			output.setDistance(distanceOfAttrationList.get(i).getValue());
+			output.setRewardsPoint(rewardCentral.getAttractionRewardPoints(distanceOfAttrationList.get(i).getKey().attractionId,getUser(userName).getUserId()));
+
+			outputList.add(i,output);
 		}
-		return the5Attractions;
+		return outputList;
 	}
 
 
-
-	
 	/**********************************************************************************
 	 * 
 	 * Methods Below: For Internal Testing
