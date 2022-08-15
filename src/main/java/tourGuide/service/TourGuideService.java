@@ -154,6 +154,15 @@ public class TourGuideService {
 		return outputList;
 	}
 
+	List<VisitedLocation> LastUsersLocation(){
+		List<VisitedLocation> lastLocation = new ArrayList<>();
+			getAllUsers().forEach(i-> {
+		VisitedLocation lastVisited = getAllUsers().get(getAllUsers().indexOf(i)).getLastVisitedLocation();
+		lastLocation.add(lastLocation.indexOf(i), lastVisited);
+		});
+		return lastLocation;
+	}
+
 
 	/**********************************************************************************
 	 * 
