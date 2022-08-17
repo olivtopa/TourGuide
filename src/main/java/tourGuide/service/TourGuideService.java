@@ -125,7 +125,7 @@ public class TourGuideService {
 	public List<OutputAttraction> the5NearestAttractions(String userName){
 
 		//Map<Attraction, Double> output = new HashMap<>();
-		OutputAttraction output = new OutputAttraction();
+
 		//Map<Attraction,Double> the5NearestAttractions(String userName){
 		VisitedLocation visitedLocation = getUser(userName).getLastVisitedLocation();
 		List<Attraction> attractions = new ArrayList<>(gpsUtil.getAttractions());
@@ -142,6 +142,7 @@ public class TourGuideService {
 		distanceOfAttrationList.sort(Map.Entry.comparingByValue());
 		List<OutputAttraction> outputList = new ArrayList<>();
 		for (int i=0; i<5; i++){
+			OutputAttraction output = new OutputAttraction();
 			the5Attractions.put(distanceOfAttrationList.get(i).getKey(),distanceOfAttrationList.get(i).getValue());
 			output.setAttractionName(distanceOfAttrationList.get(i).getKey().attractionName);
 			output.setLongitudee(distanceOfAttrationList.get(i).getKey().longitude);
