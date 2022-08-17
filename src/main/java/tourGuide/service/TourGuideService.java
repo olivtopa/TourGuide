@@ -124,9 +124,6 @@ public class TourGuideService {
 
 	public List<OutputAttraction> the5NearestAttractions(String userName){
 
-		//Map<Attraction, Double> output = new HashMap<>();
-
-		//Map<Attraction,Double> the5NearestAttractions(String userName){
 		VisitedLocation visitedLocation = getUser(userName).getLastVisitedLocation();
 		List<Attraction> attractions = new ArrayList<>(gpsUtil.getAttractions());
 		final Map<Attraction, Double> distanceAttractions = new HashMap<>();
@@ -155,12 +152,17 @@ public class TourGuideService {
 		return outputList;
 	}
 
-	List<VisitedLocation> LastUsersLocation(){
+	public List<VisitedLocation> LastUsersLocation(){
 		List<VisitedLocation> lastLocation = new ArrayList<>();
-			getAllUsers().forEach(i-> {
-		VisitedLocation lastVisited = getAllUsers().get(getAllUsers().indexOf(i)).getLastVisitedLocation();
-		lastLocation.add(lastLocation.indexOf(i), lastVisited);
-		});
+			getAllUsers().forEach(user-> {
+				VisitedLocation lastVisited = getAllUsers().get(getAllUsers().indexOf(user)).getLastVisitedLocation();
+		//lastLocation.add(lastLocation.indexOf(user), lastVisited);
+				UUID userId = lastVisited.userId;
+				Double longitude = lastVisited.location.longitude;
+				Double latitude = lastVisited.location.latitude;
+
+				lastLocation.add(getAllUsers().indexOf(user),lastVisited);
+			});
 		return lastLocation;
 	}
 

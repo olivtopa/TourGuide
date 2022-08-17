@@ -1,11 +1,15 @@
 package tourGuide;
 
 import gpsUtil.GpsUtil;
+import gpsUtil.location.VisitedLocation;
+import org.junit.Assert;
 import org.junit.Test;
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
+
+import java.util.List;
 
 public class TestLasUsersLocation {
 
@@ -19,7 +23,11 @@ public class TestLasUsersLocation {
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
         //When
-      //  tourGuideService.LastUsersLocation()
+        List<VisitedLocation> resultat = tourGuideService.LastUsersLocation();
+        System.out.println(resultat);
+
+        //Then
+        Assert.assertEquals(5,resultat.size());
 
     }
 }
