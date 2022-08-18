@@ -1,8 +1,10 @@
 package tourGuide;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import gpsUtil.location.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +58,7 @@ public class TourGuideController {
     }
     
     @RequestMapping("/getAllCurrentLocations")
-    public String getAllCurrentLocations() {
+    public Map<String, Location> getAllCurrentLocations() {
     	// TODO: Get a list of every user's most recent location as JSON
     	//- Note: does not use gpsUtil to query for their current location, 
     	//        but rather gathers the user's current location from their stored location history.
@@ -67,7 +69,7 @@ public class TourGuideController {
     	//        ...
     	//     }
     	
-    	return JsonStream.serialize(tourGuideService.LastUsersLocation());
+    	return tourGuideService.LastUsersLocation();
     }
 
     @RequestMapping("/getTripDeals")

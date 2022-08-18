@@ -152,16 +152,16 @@ public class TourGuideService {
 		return outputList;
 	}
 
-	public List<VisitedLocation> LastUsersLocation(){
-		List<VisitedLocation> lastLocation = new ArrayList<>();
+	public Map<String,Location> LastUsersLocation(){
+		Map<String, Location> lastLocation = new HashMap<>();
 			getAllUsers().forEach(user-> {
-				VisitedLocation lastVisited = getAllUsers().get(getAllUsers().indexOf(user)).getLastVisitedLocation();
+				VisitedLocation lastVisited = user.getLastVisitedLocation();
 		//lastLocation.add(lastLocation.indexOf(user), lastVisited);
 				UUID userId = lastVisited.userId;
 				Double longitude = lastVisited.location.longitude;
 				Double latitude = lastVisited.location.latitude;
 
-				lastLocation.add(getAllUsers().indexOf(user),lastVisited);
+				lastLocation.put(userId.toString(),lastVisited.location);
 			});
 		return lastLocation;
 	}
