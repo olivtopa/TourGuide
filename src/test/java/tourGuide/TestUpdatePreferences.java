@@ -25,6 +25,7 @@ public class TestUpdatePreferences {
         InternalTestHelper.setInternalUserNumber(0);
         UserPreferences newPreferences = new UserPreferences();
         newPreferences.setNumberOfChildren(4);
+        //newPreferences.setLowerPricePoint();
         String userName = "internalUser1";
 
         //WHEN

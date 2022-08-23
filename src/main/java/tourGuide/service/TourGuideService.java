@@ -146,7 +146,6 @@ public class TourGuideService {
 			output.setLatitude(distanceOfAttrationList.get(i).getKey().latitude);
 			output.setDistance(distanceOfAttrationList.get(i).getValue());
 			output.setRewardsPoint(rewardCentral.getAttractionRewardPoints(distanceOfAttrationList.get(i).getKey().attractionId,getUser(userName).getUserId()));
-
 			outputList.add(i,output);
 		}
 		return outputList;
@@ -156,11 +155,7 @@ public class TourGuideService {
 		Map<String, Location> lastLocation = new HashMap<>();
 			getAllUsers().forEach(user-> {
 				VisitedLocation lastVisited = user.getLastVisitedLocation();
-		//lastLocation.add(lastLocation.indexOf(user), lastVisited);
 				UUID userId = lastVisited.userId;
-				Double longitude = lastVisited.location.longitude;
-				Double latitude = lastVisited.location.latitude;
-
 				lastLocation.put(userId.toString(),lastVisited.location);
 			});
 		return lastLocation;

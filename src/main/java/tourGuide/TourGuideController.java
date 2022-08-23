@@ -1,9 +1,12 @@
 package tourGuide;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import gpsUtil.location.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import com.jsoniter.output.JsonStream;
 
 import gpsUtil.location.VisitedLocation;
+import org.zalando.jackson.datatype.money.MoneyModule;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
 import tourGuide.user.UserPreferences;
@@ -21,8 +25,6 @@ import tripPricer.Provider;
 @RestController
 public class TourGuideController {
     private static Logger logger = LoggerFactory.getLogger(TourGuideController.class);
-
-
 
 	@Autowired
 	TourGuideService tourGuideService;
@@ -84,6 +86,9 @@ public class TourGuideController {
 
     @PutMapping(value = "/userPreferences")
     public void updateUserPreferences(@RequestBody UserPreferences newPreferences, @RequestParam String userName){
+        ObjectMapper mapper =new ObjectMapper().registerModule(new MoneyModule().withQuotedDecimalNumbers().withDefaultFormatting());
+        ObjectWriter writer = mapper.writer().with(Locale.US);
+
         logger.info("PUT Request to modify users preferences");
         tourGuideService.updateUserPreferences(userName,newPreferences);
     }

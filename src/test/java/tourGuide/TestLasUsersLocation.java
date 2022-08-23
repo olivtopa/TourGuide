@@ -1,7 +1,7 @@
 package tourGuide;
 
 import gpsUtil.GpsUtil;
-import gpsUtil.location.VisitedLocation;
+import gpsUtil.location.Location;
 import org.junit.Assert;
 import org.junit.Test;
 import rewardCentral.RewardCentral;
@@ -9,7 +9,7 @@ import tourGuide.helper.InternalTestHelper;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 
-import java.util.List;
+import java.util.Map;
 
 public class TestLasUsersLocation {
 
@@ -23,11 +23,10 @@ public class TestLasUsersLocation {
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
         //When
-        List<VisitedLocation> resultat = tourGuideService.LastUsersLocation();
+        Map<String, Location> resultat = tourGuideService.LastUsersLocation();
         System.out.println(resultat);
 
         //Then
         Assert.assertEquals(5,resultat.size());
-
     }
 }

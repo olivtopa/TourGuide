@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import gpsUtil.GpsUtil;
+import org.zalando.jackson.datatype.money.MoneyModule;
 import rewardCentral.RewardCentral;
 import tourGuide.service.RewardsService;
 
@@ -23,6 +24,11 @@ public class TourGuideModule {
 	@Bean
 	public RewardCentral getRewardCentral() {
 		return new RewardCentral();
+	}
+
+	@Bean
+	public MoneyModule moneyModule(){
+		return new MoneyModule();
 	}
 	
 }
