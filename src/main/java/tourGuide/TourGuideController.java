@@ -70,8 +70,7 @@ public class TourGuideController {
     	//        "019b04a9-067a-4c76-8817-ee75088c3822": {"longitude":-48.188821,"latitude":74.84371} 
     	//        ...
     	//     }
-    	
-    	return tourGuideService.LastUsersLocation();
+    		return tourGuideService.LastUsersLocation();
     }
 
     @RequestMapping("/getTripDeals")
@@ -86,8 +85,8 @@ public class TourGuideController {
 
     @PutMapping(value = "/userPreferences")
     public void updateUserPreferences(@RequestBody UserPreferences newPreferences, @RequestParam String userName){
-        ObjectMapper mapper =new ObjectMapper().registerModule(new MoneyModule().withQuotedDecimalNumbers().withDefaultFormatting());
-        ObjectWriter writer = mapper.writer().with(Locale.US);
+        //ObjectMapper mapper =new ObjectMapper().registerModule(new MoneyModule().withQuotedDecimalNumbers().withDefaultFormatting());
+        //ObjectWriter writer = mapper.writer().with(Locale.US);
 
         logger.info("PUT Request to modify users preferences");
         tourGuideService.updateUserPreferences(userName,newPreferences);
