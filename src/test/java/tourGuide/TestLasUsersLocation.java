@@ -23,7 +23,7 @@ public class TestLasUsersLocation {
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
         //When
-        Map<String, Location> resultat = tourGuideService.LastUsersLocation();
+        Map<String, Location> resultat = tourGuideService.lastUsersLocation();
         System.out.println(resultat);
 
         //Then

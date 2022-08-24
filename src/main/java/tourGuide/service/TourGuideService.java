@@ -151,7 +151,7 @@ public class TourGuideService {
 		return outputList;
 	}
 
-	public Map<String,Location> LastUsersLocation(){
+	public Map<String,Location> lastUsersLocation(){
 		Map<String, Location> lastLocation = new HashMap<>();
 			getAllUsers().forEach(user-> {
 				VisitedLocation lastVisited = user.getLastVisitedLocation();
