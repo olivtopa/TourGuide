@@ -85,9 +85,6 @@ public class TourGuideController {
 
     @PutMapping(value = "/userPreferences")
     public void updateUserPreferences(@RequestBody UserPreferences newPreferences, @RequestParam String userName){
-        //ObjectMapper mapper =new ObjectMapper().registerModule(new MoneyModule().withQuotedDecimalNumbers().withDefaultFormatting());
-        //ObjectWriter writer = mapper.writer().with(Locale.US);
-
         logger.info("PUT Request to modify users preferences");
         tourGuideService.updateUserPreferences(userName,newPreferences);
     }
