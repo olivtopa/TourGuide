@@ -87,6 +87,7 @@ public class TourGuideController {
     public void updateUserPreferences(@RequestBody UserPreferences newPreferences, @RequestParam String userName){
         logger.info("PUT Request to modify users preferences");
         tourGuideService.updateUserPreferences(userName,newPreferences);
+        logger.info("new preferences : lowerPricePoint : {}, numberOfAdults : {}",newPreferences.getLowerPricePoint(),newPreferences.getNumberOfAdults());
     }
 
 }
