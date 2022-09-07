@@ -35,9 +35,9 @@ public class TourGuideController {
     }
     
     @RequestMapping("/getLocation") 
-    public String getLocation(@RequestParam String userName) throws ExecutionException, InterruptedException {
+    public Location getLocation(@RequestParam String userName) throws ExecutionException, InterruptedException {
     	VisitedLocation visitedLocation = tourGuideService.getUserLocation(getUser(userName));
-		return JsonStream.serialize(visitedLocation.location);
+		return visitedLocation.location;
     }
     
     //  TODO: Change this method to no longer return a List of Attractions.
@@ -50,13 +50,14 @@ public class TourGuideController {
         // The reward points for visiting each Attraction.
         //    Note: Attraction reward points can be gathered from RewardsCentral
     @RequestMapping("/getNearbyAttractions") 
-    public String getNearbyAttractions(@RequestParam String userName){
-        return JsonStream.serialize(tourGuideService.the5NearestAttractions(userName));
+    public
+    List<tourGuide.OutputAttraction> getNearbyAttractions(@RequestParam String userName){
+        return tourGuideService.the5NearestAttractions(userName);
     }
     
     @RequestMapping("/getRewards") 
-    public String getRewards(@RequestParam String userName) {
-    	return JsonStream.serialize(tourGuideService.getUserRewards(getUser(userName)));
+    public List<tourGuide.user.UserReward> getRewards(@RequestParam String userName) {
+    	return tourGuideService.getUserRewards(getUser(userName));
     }
     
     @RequestMapping("/getAllCurrentLocations")
@@ -74,9 +75,9 @@ public class TourGuideController {
     }
 
     @RequestMapping("/getTripDeals")
-    public String getTripDeals(@RequestParam String userName) {
+    public List<Provider> getTripDeals(@RequestParam String userName) {
     	List<Provider> providers = tourGuideService.getTripDeals(getUser(userName));
-    	return JsonStream.serialize(providers);
+    	return providers;
     }
     
     private User getUser(String userName) {
