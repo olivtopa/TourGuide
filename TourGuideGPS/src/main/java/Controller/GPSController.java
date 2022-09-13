@@ -1,26 +1,32 @@
 package Controller;
 
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
+import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import tourGuide.service.TourGuideService;
+import service.GPSService;
+
 
 @RestController
 public class GPSController {
 
+    @Autowired GPSService gpsService;
+
     @RequestMapping("/getLocation")
-    public Location getLocation(@RequestParam String userName) throws ExecutionException, InterruptedException {
-        VisitedLocation visitedLocation = tourGuideService.getUserLocation(getUser(userName));
-        return visitedLocation.location;
+    public VisitedLocation getLocation(@RequestParam UUID userId) throws ExecutionException, InterruptedException {
+        return gpsService.getUserLocation(userId);
     }
 
-    @RequestMapping("/getNearbyAttractions")
-    /* model */public Object getNearbyAttractions(@RequestParam String userName){
-        return tourGuideService.the5NearestAttractions(userName);
+    @RequestMapping("/getAttractions")
+    public List<Attraction> getAttractions(){
+        return gpsService.getAttractions();
     }
 }
 
