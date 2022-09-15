@@ -1,17 +1,16 @@
-package Controller;
+package tourGuideGPS.Controller;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import gpsUtil.location.Attraction;
-import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import service.GPSService;
+import tourGuideGPS.service.GPSService;
 
 
 @RestController
