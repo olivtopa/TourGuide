@@ -5,16 +5,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import gpsUtil.location.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.jsoniter.output.JsonStream;
-
+import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import org.zalando.jackson.datatype.money.MoneyModule;
 import tourGuide.service.TourGuideService;
