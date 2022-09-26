@@ -1,19 +1,21 @@
 package tourGuide;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import gpsUtil.GpsUtil;
+
 import org.zalando.jackson.datatype.money.MoneyModule;
 import rewardCentral.RewardCentral;
+import tourGuide.service.GpsUtilService;
 import tourGuide.service.RewardsService;
 
 @Configuration
 public class TourGuideModule {
 	
 	@Bean
-	public GpsUtil getGpsUtil() {
-		return new GpsUtil();
+	public GpsUtilService getGpsUtil() {
+		return new GpsUtilService();
 	}
 	
 	@Bean

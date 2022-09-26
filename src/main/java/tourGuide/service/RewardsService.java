@@ -4,21 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import gpsUtil.GpsUtil;
-import gpsUtil.location.Attraction;
-import gpsUtil.location.Location;
-import gpsUtil.location.VisitedLocation;
+
 import rewardCentral.RewardCentral;
+import tourGuide.newGpsUtil.Attraction;
+import tourGuide.newGpsUtil.Location;
+import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.user.User;
 import tourGuide.user.UserReward;
 
 @Service
 public class RewardsService {
     private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
-	private GpsUtil gpsUtil;
-	GpsUtil newAttractions = new GpsUtil();
+	private GpsUtilService gpsUtil;
+	GpsUtilService newAttractions = new GpsUtilService();
 	private final List<Attraction> attractions= newAttractions.getAttractions();
 	private final ExecutorService executor = Executors.newFixedThreadPool(70);
 
@@ -29,11 +31,14 @@ public class RewardsService {
 
 	private final RewardCentral rewardsCentral;
 
-	public RewardsService(GpsUtil gpsUtil, RewardCentral rewardCentral) {
+	public RewardsService(GpsUtilService gpsUtil, RewardCentral rewardCentral) {
 		this.gpsUtil = gpsUtil;
 		this.rewardsCentral = rewardCentral;
 	}
-	
+
+	@Autowired GpsUtilService gpsUtilService;
+
+
 	public void setProximityBuffer(int proximityBuffer) {
 		this.proximityBuffer = proximityBuffer;
 	}
@@ -60,11 +65,11 @@ public class RewardsService {
 	}
 	
 	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
-		return getDistance(attraction, location) > attractionProximityRange ? false : true;
+		return getDistance(gpsUtilService.location, location) > attractionProximityRange ? false : true;
 	}
 	
 	private boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
-		return getDistance(attraction, visitedLocation.location) > proximityBuffer ? false : true;
+		return getDistance(gpsUtilService.location, visitedLocation.location) > proximityBuffer ? false : true;
 	}
 	
 	private int getRewardPoints(Attraction attraction, User user) {

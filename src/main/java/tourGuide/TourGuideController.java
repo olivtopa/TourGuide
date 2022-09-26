@@ -5,14 +5,18 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import gpsUtil.location.Location;
-import gpsUtil.location.VisitedLocation;
+
+
 import org.zalando.jackson.datatype.money.MoneyModule;
+
+import tourGuide.newGpsUtil.Location;
+import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
 import tourGuide.user.UserPreferences;

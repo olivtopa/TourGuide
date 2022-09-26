@@ -23,6 +23,8 @@ import java.util.UUID;
 @Service
 public class GpsUtilService {
 
+    Location location;
+
     public interface GetUserLocation {
         @GET("/getLocation")
         Call<VisitedLocation> userLocation(@Query("userId)") UUID userId);
@@ -39,17 +41,25 @@ public class GpsUtilService {
            .build();
 
 
-    public VisitedLocation getUserLocation(UUID userId) throws IOException {
+    public VisitedLocation getUserLocation(UUID userId)  {
         GetUserLocation retrofitUserLocation = tourGuideGPS.create(GetUserLocation.class);
+        try {
         Call<VisitedLocation> callUserLocationSync = retrofitUserLocation.userLocation(userId);
-        return callUserLocationSync.execute().body();
 
+            return callUserLocationSync.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }return null;
     }
 
-    public List<Attraction> getAttractions() throws IOException {
+    public List<Attraction> getAttractions() {
         GetAttractions retrofitAttractions = tourGuideGPS.create(GetAttractions.class);
-        Call<List<Attraction>> callAttractionsSync = retrofitAttractions.getAttractions();
-        return callAttractionsSync.execute().body();
+        try {
+            Call<List<Attraction>> callAttractionsSync = retrofitAttractions.getAttractions();
+            return callAttractionsSync.execute().body();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }return null;
     }
 
 }

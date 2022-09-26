@@ -1,10 +1,15 @@
 package tourGuide.newGpsUtil;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import tourGuide.service.TourGuideService;
+
 public class Location {
 
-    public double longitude;
-    public double latitude;
+    @Autowired TourGuideService tourGuideService;
+
+    public double longitude = tourGuideService.generateRandomLongitude();
+    public double latitude = tourGuideService.generateRandomLongitude();
 
     public double getLongitude() {
         return longitude;

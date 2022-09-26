@@ -1,11 +1,13 @@
 package tourGuide;
 
-import gpsUtil.GpsUtil;
-import gpsUtil.location.Location;
+
+;
 import org.junit.Assert;
 import org.junit.Test;
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
+import tourGuide.newGpsUtil.Location;
+import tourGuide.service.GpsUtilService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 
@@ -17,7 +19,7 @@ public class TestLasUsersLocation {
    public void isListOfLocationEmpty(){
 
         //Given
-        GpsUtil gpsUtil = new GpsUtil();
+        GpsUtilService gpsUtil = new GpsUtilService();
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
         InternalTestHelper.setInternalUserNumber(5);
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
