@@ -63,8 +63,9 @@ public class TourGuideService {
 	}
 
 	public VisitedLocation getUserLocation(User user) throws ExecutionException, InterruptedException {
+		UUID userID = user.getUserId();
 		VisitedLocation visitedLocation = (user.getVisitedLocations().size() > 0) ?
-				user.getLastVisitedLocation() :
+				gpsUtil.getUserLocation(userID):
 				trackUserLocation(user).join();
 		return visitedLocation;
 	}
@@ -95,7 +96,7 @@ public class TourGuideService {
 	public CompletableFuture<VisitedLocation> trackUserLocation (User user){
 		CompletableFuture<VisitedLocation> cf = new CompletableFuture<>();
 		cf = CompletableFuture
-				.supplyAsync(() -> gpsUtilService.getUserLocation(user.getUserId()),executor)
+				.supplyAsync(() -> gpsUtil.getUserLocation(user.getUserId()),executor)
 				.thenApply(visitedLocation -> {
 					user.addToVisitedLocations(visitedLocation);
 					rewardsService.calculateRewards(user);
