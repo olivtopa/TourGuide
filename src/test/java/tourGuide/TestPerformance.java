@@ -13,11 +13,12 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import gpsUtil.GpsUtil;
-import gpsUtil.location.Attraction;
-import gpsUtil.location.VisitedLocation;
+
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
+import tourGuide.newGpsUtil.Attraction;
+import tourGuide.newGpsUtil.VisitedLocation;
+import tourGuide.service.GpsUtilService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
@@ -53,7 +54,7 @@ public class TestPerformance {
 	//@Ignore
 	@Test(timeout = 15*60*1000)
 	public void highVolumeTrackLocation() throws ExecutionException, InterruptedException {
-		GpsUtil gpsUtil = new GpsUtil();
+		GpsUtilService gpsUtil = new GpsUtilService();
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 		// Users should be incremented up to 100,000, and test finishes within 15 minutes
 		InternalTestHelper.setInternalUserNumber(100000);
@@ -84,7 +85,7 @@ public class TestPerformance {
 	@Test (timeout = 21*60*1000)
 
 	public void highVolumeGetRewards() {
-		GpsUtil gpsUtil = new GpsUtil();
+		GpsUtilService gpsUtil = new GpsUtilService();
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 
 		// Users should be incremented up to 100,000, and test finishes within 20 minutes
@@ -96,7 +97,7 @@ public class TestPerformance {
 	    Attraction attraction = gpsUtil.getAttractions().get(0);
 		List<User> allUsers = new ArrayList<>();
 		allUsers = tourGuideService.getAllUsers();
-		allUsers.forEach(u -> u.addToVisitedLocations(new VisitedLocation(u.getUserId(), attraction, new Date())));
+		allUsers.forEach(u -> u.addToVisitedLocations(new VisitedLocation()));
 	     
 	    allUsers.forEach(u -> rewardsService.calculateRewards(u));
 

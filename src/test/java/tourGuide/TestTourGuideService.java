@@ -8,11 +8,12 @@ import java.util.concurrent.ExecutionException;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import gpsUtil.GpsUtil;
-import gpsUtil.location.Attraction;
-import gpsUtil.location.VisitedLocation;
+
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
+import tourGuide.newGpsUtil.Attraction;
+import tourGuide.newGpsUtil.VisitedLocation;
+import tourGuide.service.GpsUtilService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
@@ -24,7 +25,7 @@ public class TestTourGuideService {
 
 	@Test
 	public void getUserLocation() throws ExecutionException, InterruptedException {
-		GpsUtil gpsUtil = new GpsUtil();
+		GpsUtilService gpsUtil = new GpsUtilService();
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 		InternalTestHelper.setInternalUserNumber(0);
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
@@ -37,7 +38,7 @@ public class TestTourGuideService {
 	
 	@Test
 	public void addUser() {
-		GpsUtil gpsUtil = new GpsUtil();
+		GpsUtilService gpsUtil = new GpsUtilService();
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 		InternalTestHelper.setInternalUserNumber(0);
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
@@ -59,7 +60,7 @@ public class TestTourGuideService {
 	
 	@Test
 	public void getAllUsers() {
-		GpsUtil gpsUtil = new GpsUtil();
+		GpsUtilService gpsUtil = new GpsUtilService();
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 		InternalTestHelper.setInternalUserNumber(0);
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
@@ -80,7 +81,7 @@ public class TestTourGuideService {
 	
 	@Test
 	public void trackUser() throws ExecutionException, InterruptedException {
-		GpsUtil gpsUtil = new GpsUtil();
+		GpsUtilService gpsUtil = new GpsUtilService();
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 		InternalTestHelper.setInternalUserNumber(0);
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
@@ -96,7 +97,7 @@ public class TestTourGuideService {
 	//@Ignore // Not yet implemented
 	@Test
 	public void getNearbyAttractions() throws ExecutionException, InterruptedException {
-		GpsUtil gpsUtil = new GpsUtil();
+		GpsUtilService gpsUtil = new GpsUtilService();
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 		InternalTestHelper.setInternalUserNumber(0);
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
@@ -113,7 +114,7 @@ public class TestTourGuideService {
 	@Test
 	public void getTripDeals() {
 		//GIVEN
-		GpsUtil gpsUtil = new GpsUtil();
+		GpsUtilService gpsUtil = new GpsUtilService();
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 		InternalTestHelper.setInternalUserNumber(0);

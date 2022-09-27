@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
+import tourGuide.service.GpsUtilService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 
@@ -18,7 +19,7 @@ public class TestNearestAttractions {
     public void the5nearestAtttractions(){
 
         //Given
-        GpsUtil gpsUtil = new GpsUtil();
+        GpsUtilService gpsUtil = new GpsUtilService();
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
         InternalTestHelper.setInternalUserNumber(0);
