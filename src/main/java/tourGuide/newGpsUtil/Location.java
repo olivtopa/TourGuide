@@ -9,7 +9,7 @@ public class Location {
     @Autowired TourGuideService tourGuideService;
 
     public double longitude = tourGuideService.generateRandomLongitude();
-    public double latitude = tourGuideService.generateRandomLongitude();
+    public double latitude = tourGuideService.generateRandomLatitude();
 
     public double getLongitude() {
         return longitude;

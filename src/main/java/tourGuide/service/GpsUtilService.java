@@ -1,7 +1,5 @@
 package tourGuide.service;
 
-import gpsUtil.GpsUtil;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +43,6 @@ public class GpsUtilService {
         GetUserLocation retrofitUserLocation = tourGuideGPS.create(GetUserLocation.class);
         try {
         Call<VisitedLocation> callUserLocationSync = retrofitUserLocation.userLocation(userId);
-
             return callUserLocationSync.execute().body();
         } catch (IOException e) {
             e.printStackTrace();

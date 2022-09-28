@@ -1,8 +1,9 @@
 package tourGuide;
 
 import com.sun.javafx.scene.control.skin.DoubleFieldSkin;
-import gpsUtil.GpsUtil;
-import gpsUtil.location.Attraction;
+
+
+import tourGuide.newGpsUtil.Attraction;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 

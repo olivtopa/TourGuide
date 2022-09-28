@@ -40,7 +40,7 @@ public class TourGuideController {
 		return visitedLocation.location;
     }
     
-    //  TODO: Change this method to no longer return a List of Attractions.
+    //  DONE: Change this method to no longer return a List of Attractions.
  	//  Instead: Get the closest five tourist attractions to the user - no matter how far away they are.
  	//  Return a new JSON object that contains:
     	// Name of Tourist attraction, 
@@ -50,8 +50,7 @@ public class TourGuideController {
         // The reward points for visiting each Attraction.
         //    Note: Attraction reward points can be gathered from RewardsCentral
     @RequestMapping("/getNearbyAttractions") 
-    public
-    List<tourGuide.OutputAttraction> getNearbyAttractions(@RequestParam String userName){
+    public List<tourGuide.OutputAttraction> getNearbyAttractions(@RequestParam String userName){
         return tourGuideService.the5NearestAttractions(userName);
     }
     

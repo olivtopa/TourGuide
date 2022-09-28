@@ -34,7 +34,6 @@ import tripPricer.TripPricer;
 @Service
 public class TourGuideService {
 	private Logger logger = LoggerFactory.getLogger(TourGuideService.class);
-	private final GpsUtilService gpsUtil;
 	private final RewardsService rewardsService;
 	private final TripPricer tripPricer = new TripPricer();
 	public final Tracker tracker;
@@ -56,16 +55,16 @@ public class TourGuideService {
 		addShutDownHook();
 	}
 
-	@Autowired GpsUtilService gpsUtilService;
+	@Autowired GpsUtilService gpsUtil;
 
 	public List<UserReward> getUserRewards(User user) {
 		return user.getUserRewards();
 	}
 
 	public VisitedLocation getUserLocation(User user) throws ExecutionException, InterruptedException {
-		UUID userID = user.getUserId();
+
 		VisitedLocation visitedLocation = (user.getVisitedLocations().size() > 0) ?
-				gpsUtil.getUserLocation(userID):
+				gpsUtil.getUserLocation(user.getUserId()):
 				trackUserLocation(user).join();
 		return visitedLocation;
 	}
@@ -131,7 +130,7 @@ public class TourGuideService {
 	public List<OutputAttraction> the5NearestAttractions(String userName){
 
 		VisitedLocation visitedLocation = getUser(userName).getLastVisitedLocation();
-		List<Attraction> attractions = new ArrayList<>(gpsUtilService.getAttractions());
+		List<Attraction> attractions = new ArrayList<>(gpsUtil.getAttractions());
 		final Map<Attraction, Double> distanceAttractions = new HashMap<>();
 		final Map<Attraction, Double> the5Attractions = new HashMap<>();
 
@@ -148,8 +147,8 @@ public class TourGuideService {
 			OutputAttraction output = new OutputAttraction();
 			the5Attractions.put(distanceOfAttrationList.get(i).getKey(),distanceOfAttrationList.get(i).getValue());
 			output.setAttractionName(distanceOfAttrationList.get(i).getKey().attractionName);
-			output.setLongitudee(distanceOfAttrationList.get(i).getKey().location.longitude);
-			output.setLatitude(distanceOfAttrationList.get(i).getKey().location.latitude);
+			output.setLongitudee(distanceOfAttrationList.get(i).getKey().location.getLongitude());
+			output.setLatitude(distanceOfAttrationList.get(i).getKey().location.getLatitude());
 			output.setDistance(distanceOfAttrationList.get(i).getValue());
 			output.setRewardsPoint(rewardCentral.getAttractionRewardPoints(distanceOfAttrationList.get(i).getKey().attractionId,getUser(userName).getUserId()));
 			outputList.add(i,output);

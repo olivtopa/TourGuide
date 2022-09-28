@@ -24,8 +24,6 @@ import java.util.UUID;
             this.city = city;
         }
 
-
-
         public String getState() {
             return state;
         }
