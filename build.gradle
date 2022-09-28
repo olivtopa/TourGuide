@@ -25,6 +25,9 @@ repositories {
     flatDir {
         dirs 'libs'
     }
+    flatDir {
+       dirs 'newGpsUtil'
+    }
 }
 
 sourceCompatibility = 1.8
