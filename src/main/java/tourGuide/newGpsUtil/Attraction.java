@@ -7,7 +7,8 @@ import java.util.UUID;
         private String city;
         private String state;
         private UUID attractionId;
-        private Location location;
+        private double longitude ;
+        private double latitude ;
 
         public String getAttractionName() {
             return attractionName;
@@ -41,10 +42,10 @@ import java.util.UUID;
         }
 
         public Location getLocation() {
+            Location location = new Location();
+            location.setLongitude(longitude);
+            location.setLatitude(latitude);
             return location;
         }
 
-        public void setLocation(Location location) {
-            this.location = location;
-        }
     }
