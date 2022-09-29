@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tripPricer.Provider;
 
@@ -26,7 +28,8 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.emailAddress = emailAddress;
 	}
-	
+
+
 	public UUID getUserId() {
 		return userId;
 	}
@@ -72,7 +75,7 @@ public class User {
 	}
 	
 	public void addUserReward(UserReward userReward) {
-		if(userRewards.stream().filter(r -> r.attraction.attractionName.equals(userReward.attraction.getAttractionName())).count() == 0) {
+		if(userRewards.stream().filter(r -> r.getAttraction().getAttractionName().equals(userReward.getAttraction().getAttractionName())).count() == 0) {
 			userRewards.add(userReward);
 		}
 	}
