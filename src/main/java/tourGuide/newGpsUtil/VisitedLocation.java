@@ -5,9 +5,9 @@ import java.util.UUID;
 
 public class VisitedLocation {
 
-    public UUID userId;
-    public tourGuide.newGpsUtil.Location location;
-    public Date timeVisited;
+    private UUID userId;
+    private tourGuide.newGpsUtil.Location location;
+    private Date timeVisited;
 
     public UUID getUserId() {
         return userId;

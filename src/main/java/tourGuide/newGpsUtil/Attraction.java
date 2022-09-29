@@ -3,13 +3,13 @@ package tourGuide.newGpsUtil;
 import java.util.UUID;
 
     public class Attraction {
-        public String attractionName;
-        public String city;
-        public String state;
-        public UUID attractionId;
-        public Location location;
+        private String attractionName;
+        private String city;
+        private String state;
+        private UUID attractionId;
+        private Location location;
 
-            public String getAttractionName() {
+        public String getAttractionName() {
             return attractionName;
         }
         public void setAttractionName(String attractionName) {
