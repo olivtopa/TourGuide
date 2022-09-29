@@ -1,7 +1,6 @@
 package tourGuide;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -10,10 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-
-
-import org.zalando.jackson.datatype.money.MoneyModule;
 
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
@@ -37,7 +32,7 @@ public class TourGuideController {
     @RequestMapping("/getLocation") 
     public Location getLocation(@RequestParam String userName) throws ExecutionException, InterruptedException {
     	VisitedLocation visitedLocation = tourGuideService.getUserLocation(getUser(userName));
-		return visitedLocation.location;
+		return visitedLocation.getLocation();
     }
     
     //  DONE: Change this method to no longer return a List of Attractions.

@@ -24,7 +24,7 @@ public class GpsUtilService {
 
     public interface GetUserLocation {
         @GET("/getLocation")
-        Call<VisitedLocation> userLocation(@Query("userId)") UUID userId);
+        Call<VisitedLocation> userLocation(@Query("userId") UUID userId);
     }
 
     public interface GetAttractions {

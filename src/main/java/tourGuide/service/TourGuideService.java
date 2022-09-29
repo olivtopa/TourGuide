@@ -108,7 +108,7 @@ public class TourGuideService {
 	public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
 		List<Attraction> nearbyAttractions = new ArrayList<>();
 		for(Attraction attraction : gpsUtil.getAttractions()) {
-			if(rewardsService.isWithinAttractionProximity(attraction, visitedLocation.location)) {
+			if(rewardsService.isWithinAttractionProximity(attraction, visitedLocation.getLocation())) {
 				nearbyAttractions.add(attraction);
 			}
 		}
@@ -136,7 +136,7 @@ public class TourGuideService {
 
 		IntStream.range(0,attractions.size()).forEach(i-> {
 
-			double distance = rewardsService.getDistance(visitedLocation.location, attractions.get(i).location);
+			double distance = rewardsService.getDistance(visitedLocation.getLocation(), attractions.get(i).getLocation());
 			distanceAttractions.put(attractions.get(i),distance);
 		});
 
@@ -146,11 +146,11 @@ public class TourGuideService {
 		for (int i=0; i<5; i++){
 			OutputAttraction output = new OutputAttraction();
 			the5Attractions.put(distanceOfAttrationList.get(i).getKey(),distanceOfAttrationList.get(i).getValue());
-			output.setAttractionName(distanceOfAttrationList.get(i).getKey().attractionName);
-			output.setLongitudee(distanceOfAttrationList.get(i).getKey().location.getLongitude());
-			output.setLatitude(distanceOfAttrationList.get(i).getKey().location.getLatitude());
+			output.setAttractionName(distanceOfAttrationList.get(i).getKey().getAttractionName());
+			output.setLongitudee(distanceOfAttrationList.get(i).getKey().getLocation().getLongitude());
+			output.setLatitude(distanceOfAttrationList.get(i).getKey().getLocation().getLatitude());
 			output.setDistance(distanceOfAttrationList.get(i).getValue());
-			output.setRewardsPoint(rewardCentral.getAttractionRewardPoints(distanceOfAttrationList.get(i).getKey().attractionId,getUser(userName).getUserId()));
+			output.setRewardsPoint(rewardCentral.getAttractionRewardPoints(distanceOfAttrationList.get(i).getKey().getAttractionId(),getUser(userName).getUserId()));
 			outputList.add(i,output);
 		}
 		return outputList;
@@ -160,8 +160,8 @@ public class TourGuideService {
 		Map<String, Location> lastLocation = new HashMap<>();
 		getAllUsers().forEach(user-> {
 			VisitedLocation lastVisited = user.getLastVisitedLocation();
-			UUID userId = lastVisited.userId;
-			lastLocation.put(userId.toString(),lastVisited.location);
+			UUID userId = lastVisited.getUserId();
+			lastLocation.put(userId.toString(),lastVisited.getLocation());
 		});
 		return lastLocation;
 	}
