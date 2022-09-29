@@ -21,7 +21,6 @@ import java.util.UUID;
 @Service
 public class GpsUtilService {
 
-    Location location;
 
     public interface GetUserLocation {
         @GET("/getLocation")

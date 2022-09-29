@@ -6,10 +6,10 @@ import tourGuide.service.TourGuideService;
 
 public class Location {
 
-    @Autowired TourGuideService tourGuideService;
 
-    public double longitude = tourGuideService.generateRandomLongitude();
-    public double latitude = tourGuideService.generateRandomLatitude();
+
+    private double longitude ;
+    private double latitude ;
 
     public double getLongitude() {
         return longitude;

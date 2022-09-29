@@ -13,16 +13,11 @@ import tourGuide.service.RewardsService;
 @Configuration
 public class TourGuideModule {
 	
+
 	@Bean
-	public GpsUtilService getGpsUtil() {
-		return new GpsUtilService();
+	public RewardsService getRewardsService(GpsUtilService gpsUtilService) {
+		return new RewardsService(gpsUtilService, getRewardCentral());
 	}
-	
-	@Bean
-	public RewardsService getRewardsService() {
-		return new RewardsService(getGpsUtil(), getRewardCentral());
-	}
-	
 	@Bean
 	public RewardCentral getRewardCentral() {
 		return new RewardCentral();
@@ -32,5 +27,4 @@ public class TourGuideModule {
 	public MoneyModule moneyModule(){
 		return new MoneyModule();
 	}
-	
 }
