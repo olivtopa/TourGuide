@@ -55,7 +55,7 @@ public class RewardsService {
 		for(VisitedLocation visitedLocation : userLocations) {
 			this.attractions.stream().forEach(attraction -> {
 
-					if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
+					if(user.getUserRewards().stream().filter(r -> r.getAttraction().getAttractionName().equals(attraction.getAttractionName())).count() == 0) {
 						if (nearAttraction(visitedLocation, attraction)) {
 							CompletableFuture.runAsync(() ->
 									user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user))), executor);
@@ -70,11 +70,11 @@ public class RewardsService {
 	}
 	
 	private boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
-		return getDistance(attraction.getLocation(), visitedLocation.location) > proximityBuffer ? false : true;
+		return getDistance(attraction.getLocation(), visitedLocation.getLocation()) > proximityBuffer ? false : true;
 	}
 	
 	private int getRewardPoints(Attraction attraction, User user) {
-		return rewardsCentral.getAttractionRewardPoints(attraction.attractionId, user.getUserId());
+		return rewardsCentral.getAttractionRewardPoints(attraction.getAttractionId(), user.getUserId());
 	}
 	
 	public double getDistance(Location loc1, Location loc2) {
