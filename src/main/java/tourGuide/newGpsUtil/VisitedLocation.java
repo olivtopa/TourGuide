@@ -9,6 +9,14 @@ public class VisitedLocation {
     private tourGuide.newGpsUtil.Location location;
     private Date timeVisited;
 
+        public VisitedLocation(UUID userId, Location location, Date timeVisited) {
+        this.userId = userId;
+        this.location = location;
+        this.timeVisited = timeVisited;
+    }
+
+    public VisitedLocation() {}
+
     public UUID getUserId() {
         return userId;
     }

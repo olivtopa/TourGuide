@@ -36,9 +36,7 @@ public class RewardsService {
 		this.rewardsCentral = rewardCentral;
 	}
 
-	@Autowired GpsUtilService gpsUtilService;
-	@Autowired Attraction attraction;
-
+	//@Autowired GpsUtilService gpsUtilService;
 
 	public void setProximityBuffer(int proximityBuffer) {
 		this.proximityBuffer = proximityBuffer;

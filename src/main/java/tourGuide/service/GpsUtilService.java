@@ -54,8 +54,9 @@ public class GpsUtilService {
             Call<List<Attraction>> callAttractionsSync = retrofitAttractions.getAttractions();
             return callAttractionsSync.execute().body();
         }catch (IOException e) {
-            e.printStackTrace();
-        }return null;
+
+            throw new RuntimeException(e);
+        }
     }
 
 }
