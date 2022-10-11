@@ -44,8 +44,8 @@ public class GpsUtilService {
         Call<VisitedLocation> callUserLocationSync = retrofitUserLocation.userLocation(userId);
             return callUserLocationSync.execute().body();
         } catch (IOException e) {
-            e.printStackTrace();
-        }return null;
+            throw  new RuntimeException(e);
+        }
     }
 
     public List<Attraction> getAttractions() {

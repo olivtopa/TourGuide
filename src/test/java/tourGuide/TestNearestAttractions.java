@@ -1,9 +1,8 @@
 package tourGuide;
 
-import gpsUtil.GpsUtil;
-import gpsUtil.location.Attraction;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.service.GpsUtilService;
@@ -14,12 +13,12 @@ import java.util.List;
 import java.util.Map;
 
 public class TestNearestAttractions {
+    @Autowired GpsUtilService gpsUtil;
 
     @Test
     public void the5nearestAtttractions(){
 
         //Given
-        GpsUtilService gpsUtil = new GpsUtilService();
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
         InternalTestHelper.setInternalUserNumber(0);

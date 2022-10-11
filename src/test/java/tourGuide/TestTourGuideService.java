@@ -33,7 +33,7 @@ public class TestTourGuideService {
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 		CompletableFuture<VisitedLocation> visitedLocation = tourGuideService.trackUserLocation(user);
 		tourGuideService.tracker.stopTracking();
-		assertTrue(visitedLocation.join().userId.equals(user.getUserId()));
+		assertTrue(visitedLocation.join().getUserId().equals(user.getUserId()));
 	}
 	
 	@Test
@@ -91,7 +91,7 @@ public class TestTourGuideService {
 
 		tourGuideService.tracker.stopTracking();
 		
-		assertEquals(user.getUserId(), visitedLocation.join().userId);
+		assertEquals(user.getUserId(), visitedLocation.join().getUserId());
 	}
 	
 	//@Ignore // Not yet implemented

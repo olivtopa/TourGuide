@@ -2,12 +2,10 @@ package tourGuide;
 
 import static org.junit.Assert.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -45,7 +43,7 @@ public class TestRewardsService {
 		GpsUtilService gpsUtil = new GpsUtilService();
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 		Attraction attraction = gpsUtil.getAttractions().get(0);
-		assertTrue(rewardsService.isWithinAttractionProximity(attraction, attraction.location));
+		assertTrue(rewardsService.isWithinAttractionProximity(attraction, attraction.getLocation()));
 	}
 	
 	//@Ignore // Needs fixed - can throw ConcurrentModificationException
