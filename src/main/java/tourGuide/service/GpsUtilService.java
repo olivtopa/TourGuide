@@ -2,6 +2,7 @@ package tourGuide.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -20,6 +21,8 @@ import java.util.UUID;
 
 @Service
 public class GpsUtilService {
+
+   // @Value("url") String url;
 
 
     public interface GetUserLocation {
