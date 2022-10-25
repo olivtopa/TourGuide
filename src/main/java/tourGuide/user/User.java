@@ -5,9 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tripPricer.Provider;
 
@@ -28,7 +25,6 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.emailAddress = emailAddress;
 	}
-
 
 	public UUID getUserId() {
 		return userId;

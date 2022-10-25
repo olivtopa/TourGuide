@@ -189,8 +189,11 @@ public class TourGuideService {
 	}
 
 	private void generateUserLocationHistory(User user) {
+		Location location = new Location();
+		location.setLatitude(generateRandomLatitude());
+		location.setLongitude(generateRandomLongitude());
 		IntStream.range(0, 3).forEach(i-> {
-			user.addToVisitedLocations(new VisitedLocation());
+			user.addToVisitedLocations(new VisitedLocation(user.getUserId(), location,getRandomTime()));
 		});
 	}
 
