@@ -15,7 +15,6 @@ import static org.junit.Assert.*;
 public class TestUpdatePreferences {
 
 
-
     @Test
     public void updatePreferences() {
         GpsUtilService gpsUtil = new GpsUtilService();
@@ -33,8 +32,8 @@ public class TestUpdatePreferences {
         tourGuideService.getUser(userName).setUserPreferences(newPreferences);
 
         //THEN
-        assertEquals(4, tourGuideService.getUser(userName).getUserPreferences().getNumberOfChildren());;
-
+        assertEquals(4, tourGuideService.getUser(userName).getUserPreferences().getNumberOfChildren());
+        ;
 
 
     }

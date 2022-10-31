@@ -16,7 +16,8 @@ import tourGuideGPS.service.GPSService;
 @RestController
 public class GPSController {
 
-    @Autowired GPSService gpsService;
+    @Autowired
+    GPSService gpsService;
 
     @RequestMapping("/getLocation")
     public VisitedLocation getLocation(@RequestParam UUID userId) throws ExecutionException, InterruptedException {
@@ -24,7 +25,7 @@ public class GPSController {
     }
 
     @RequestMapping("/getAttractions")
-    public List<Attraction> getAttractions(){
+    public List<Attraction> getAttractions() {
         return gpsService.getAttractions();
     }
 }

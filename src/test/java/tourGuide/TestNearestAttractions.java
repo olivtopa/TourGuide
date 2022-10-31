@@ -13,10 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 public class TestNearestAttractions {
-    @Autowired GpsUtilService gpsUtil;
+    @Autowired
+    GpsUtilService gpsUtil;
 
     @Test
-    public void the5nearestAtttractions(){
+    public void the5nearestAtttractions() {
 
         //Given
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
@@ -30,7 +31,7 @@ public class TestNearestAttractions {
 
         //Then
         Assert.assertNotNull(resultat);
-        Assert.assertEquals(5,resultat.size());
+        Assert.assertEquals(5, resultat.size());
 
 
     }

@@ -22,7 +22,7 @@ import java.util.UUID;
 @Service
 public class GpsUtilService {
 
-   // @Value("url") String url;
+    // @Value("url") String url;
 
 
     public interface GetUserLocation {
@@ -35,19 +35,19 @@ public class GpsUtilService {
         Call<List<Attraction>> getAttractions();
     }
 
-   Retrofit tourGuideGPS = new Retrofit.Builder()
-           .baseUrl("http://localhost:8081")
-           .addConverterFactory(JacksonConverterFactory.create())
-           .build();
+    Retrofit tourGuideGPS = new Retrofit.Builder()
+            .baseUrl("http://localhost:8081")
+            .addConverterFactory(JacksonConverterFactory.create())
+            .build();
 
 
-    public VisitedLocation getUserLocation(UUID userId)  {
+    public VisitedLocation getUserLocation(UUID userId) {
         GetUserLocation retrofitUserLocation = tourGuideGPS.create(GetUserLocation.class);
         try {
-        Call<VisitedLocation> callUserLocationSync = retrofitUserLocation.userLocation(userId);
+            Call<VisitedLocation> callUserLocationSync = retrofitUserLocation.userLocation(userId);
             return callUserLocationSync.execute().body();
         } catch (IOException e) {
-            throw  new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -56,7 +56,7 @@ public class GpsUtilService {
         try {
             Call<List<Attraction>> callAttractionsSync = retrofitAttractions.getAttractions();
             return callAttractionsSync.execute().body();
-        }catch (IOException e) {
+        } catch (IOException e) {
 
             throw new RuntimeException(e);
         }

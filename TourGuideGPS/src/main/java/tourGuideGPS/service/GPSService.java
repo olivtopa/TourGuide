@@ -18,10 +18,10 @@ public class GPSService {
     }
 
     public VisitedLocation getUserLocation(UUID userId) {
-           return new GpsUtil().getUserLocation(userId);
+        return new GpsUtil().getUserLocation(userId);
     }
 
-    public List<Attraction> getAttractions(){
+    public List<Attraction> getAttractions() {
         return new GpsUtil().getAttractions();
     }
 

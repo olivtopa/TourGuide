@@ -6,8 +6,8 @@ import tourGuide.service.TourGuideService;
 
 public class Location {
 
-    private double longitude ;
-    private double latitude ;
+    private double longitude;
+    private double latitude;
 
     public double getLongitude() {
         return longitude;

@@ -9,11 +9,11 @@ import tourGuide.service.TourGuideService;
 
 public class OutputAttraction {
 
-    Attraction attraction ;
-    String attractionName ;
-    Double longitude ;
-    Double latitude ;
-    Double distance ;
+    Attraction attraction;
+    String attractionName;
+    Double longitude;
+    Double latitude;
+    Double distance;
     int rewardsPoint;
 
 

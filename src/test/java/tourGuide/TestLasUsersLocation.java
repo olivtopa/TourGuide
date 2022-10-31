@@ -16,7 +16,7 @@ import java.util.Map;
 public class TestLasUsersLocation {
 
     @Test
-   public void isListOfLocationEmpty(){
+    public void isListOfLocationEmpty() {
 
         //Given
         GpsUtilService gpsUtil = new GpsUtilService();
@@ -29,6 +29,6 @@ public class TestLasUsersLocation {
         System.out.println(resultat);
 
         //Then
-        Assert.assertEquals(5,resultat.size());
+        Assert.assertEquals(5, resultat.size());
     }
 }
