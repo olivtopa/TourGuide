@@ -26,7 +26,7 @@ public class TestNearestAttractions {
         String userName = "internalUser1";
 
         //When
-        List<OutputAttraction> resultat = tourGuideService.the5NearestAttractions("internalUser1");
+        List<OutputAttraction> resultat = tourGuideService.the5NearestAttractions(userName);
         System.out.println(resultat);
 
         //Then

@@ -59,8 +59,9 @@ public class TestLasUsersLocation {
         //Given
         GpsUtilService gpsUtil = new GpsUtilService();
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
-        TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
         InternalTestHelper.setInternalUserNumber(5);
+        TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
+
 
 
         //When
