@@ -2,7 +2,6 @@ package tourGuide;
 
 
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.service.GpsUtilService;
@@ -10,7 +9,7 @@ import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.UserPreferences;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class TestUpdatePreferences {
 
