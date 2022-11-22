@@ -56,10 +56,10 @@ public class TestNearestAttractions {
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
         InternalTestHelper.setInternalUserNumber(1);
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
-        String userName = "internalUser1";
+        tourGuideService.getUser("internalUser0");
 
         //When
-        List<OutputAttraction> resultat = tourGuideService.the5NearestAttractions(userName);
+        List<OutputAttraction> resultat = tourGuideService.the5NearestAttractions("internalUser0");
         System.out.println(resultat);
 
         //Then
