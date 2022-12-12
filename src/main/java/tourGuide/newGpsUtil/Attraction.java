@@ -8,6 +8,7 @@ public class Attraction {
     private String state;
     private UUID attractionId;
     private double longitude;
+    private double latitude;
 
     public double getLongitude() {
         return longitude;
@@ -24,8 +25,6 @@ public class Attraction {
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
-
-    private double latitude;
 
     public String getAttractionName() {
         return attractionName;

@@ -12,10 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.service.GpsUtilService;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootTest
@@ -55,6 +57,28 @@ public class GpsUtilServiceITTest {
 
         //WHEN
         VisitedLocation result = gpsUtilService.getUserLocation(userId);
+
+        //THEN
+        Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void notNullGetAttractions() {
+
+        MockResponse mockResponse = new MockResponse()
+                .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
+                .setResponseCode(200)
+                .setBody("{}");
+
+        mockWebServer.enqueue(mockResponse);
+
+        //GIVEN
+        GpsUtilService gpsUtilService = new GpsUtilService();
+
+        //WHEN
+        List<Attraction> result = gpsUtilService.getAttractions();
+
+        System.out.println(result);
 
         //THEN
         Assert.assertNotNull(result);

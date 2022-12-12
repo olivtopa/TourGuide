@@ -3,7 +3,7 @@ package tourGuide;
 import com.google.common.net.HttpHeaders;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import org.junit.Assert;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,37 +12,42 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import rewardCentral.RewardCentral;
-import tourGuide.helper.InternalTestHelper;
+import tourGuide.newGpsUtil.Attraction;
+import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.service.GpsUtilService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+
+import static org.junit.Assert.assertEquals;
 
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TestNearestAttractions {
+public class NearbyAttractionsIT {
 
     private static MockWebServer mockWebServer;
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @BeforeClass
     public static void setup() throws IOException {
         mockWebServer = new MockWebServer();
-        mockWebServer.start(8088);
+        mockWebServer.start(8081);
     }
 
-    @BeforeClass
-    public static void teardown() throws IOException {
+    @AfterClass
+    public static void tearDown() throws IOException {
         mockWebServer.shutdown();
     }
 
     @Test
-    public void the5nearestAtttractions() {
+    public void getNearbyAttractions() throws ExecutionException, InterruptedException {
 
         MockResponse mockResponse = new MockResponse()
                 .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
@@ -51,22 +56,26 @@ public class TestNearestAttractions {
 
         mockWebServer.enqueue(mockResponse);
 
-        //Given
+        //GIVEN
         GpsUtilService gpsUtil = new GpsUtilService();
+
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
-        InternalTestHelper.setInternalUserNumber(1);
+
+
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
-        tourGuideService.getUser("internalUser0");
-
-        //When
-        List<OutputAttraction> resultat = tourGuideService.the5NearestAttractions("internalUser0");
-        System.out.println(resultat);
-
-        //Then
-        Assert.assertNotNull(resultat);
-        Assert.assertEquals(5, resultat.size());
 
 
+        UUID userId = UUID.randomUUID();
+        VisitedLocation visitedLocation = gpsUtil.getUserLocation(userId);
+
+
+        //WHEN
+        List<Attraction> nearByAttraction = tourGuideService.getNearByAttractions(visitedLocation);
+
+        //tourGuideService.tracker.stopTracking();
+
+        //THEN
+        assertEquals(200, mockResponse);
     }
 
 }

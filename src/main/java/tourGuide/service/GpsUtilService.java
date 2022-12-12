@@ -1,6 +1,8 @@
 package tourGuide.service;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -16,9 +18,6 @@ import java.util.UUID;
 
 @Service
 public class GpsUtilService {
-
-    // @Value("url") String url;
-
 
     public interface GetUserLocation {
         @GET("/getLocation")
@@ -38,6 +37,7 @@ public class GpsUtilService {
 
     public VisitedLocation getUserLocation(UUID userId) {
         GetUserLocation retrofitUserLocation = tourGuideGPS.create(GetUserLocation.class);
+
         try {
             Call<VisitedLocation> callUserLocationSync = retrofitUserLocation.userLocation(userId);
             return callUserLocationSync.execute().body();
@@ -50,7 +50,7 @@ public class GpsUtilService {
         GetAttractions retrofitAttractions = tourGuideGPS.create(GetAttractions.class);
         try {
             Call<List<Attraction>> callAttractionsSync = retrofitAttractions.getAttractions();
-            return callAttractionsSync.execute().body();
+           return callAttractionsSync.execute().body();
         } catch (IOException e) {
 
             throw new RuntimeException(e);
