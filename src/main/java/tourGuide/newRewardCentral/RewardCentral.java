@@ -1,14 +1,13 @@
-package rewardCentral.service;
-
-import org.springframework.stereotype.Service;
+package tourGuide.newRewardCentral;
 
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+public class RewardCentral {
 
-@Service
-public class RewardCentralService {
+    public RewardCentral() {
+    }
 
     public int getAttractionRewardPoints(UUID attractionId, UUID userId) {
         try {

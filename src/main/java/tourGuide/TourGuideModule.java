@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 import org.zalando.jackson.datatype.money.MoneyModule;
-import rewardCentral.RewardCentral;
+import tourGuide.newRewardCentral.RewardCentral;
 import tourGuide.service.GpsUtilService;
 import tourGuide.service.RewardsService;
 

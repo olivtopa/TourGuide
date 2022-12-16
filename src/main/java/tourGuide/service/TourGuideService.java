@@ -17,12 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import rewardCentral.RewardCentral;
 import tourGuide.OutputAttraction;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
+import tourGuide.newRewardCentral.RewardCentral;
 import tourGuide.tracker.Tracker;
 import tourGuide.user.User;
 import tourGuide.user.UserPreferences;

@@ -9,10 +9,10 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 
-import rewardCentral.RewardCentral;
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
+import tourGuide.newRewardCentral.RewardCentral;
 import tourGuide.user.User;
 import tourGuide.user.UserReward;
 
