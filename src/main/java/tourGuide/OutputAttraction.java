@@ -21,12 +21,12 @@ public class OutputAttraction {
         this.attractionName = attractionName;
     }
 
-    public Double getLongitudee() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitudee(Double longitudee) {
-        this.longitude = longitudee;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public Double getLatitude() {
@@ -58,7 +58,7 @@ public class OutputAttraction {
         return "OutputAttraction{" +
                 "attraction=" + attraction +
                 ", attractionName='" + attractionName + '\'' +
-                ", longitudee=" + longitude +
+                ", longitude=" + longitude +
                 ", latitude=" + latitude +
                 ", distance=" + distance +
                 ", rewardsPoint=" + rewardsPoint +

@@ -1,10 +1,11 @@
 package tourGuide;
 
 import org.junit.Test;
-import rewardCentral.RewardCentral;
+
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.VisitedLocation;
+import tourGuide.newRewardCentral.RewardCentral;
 import tourGuide.service.GpsUtilService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;

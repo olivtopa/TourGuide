@@ -147,7 +147,7 @@ public class TourGuideService {
             OutputAttraction output = new OutputAttraction();
             the5Attractions.put(distanceOfAttrationList.get(i).getKey(), distanceOfAttrationList.get(i).getValue());
             output.setAttractionName(distanceOfAttrationList.get(i).getKey().getAttractionName());
-            output.setLongitudee(distanceOfAttrationList.get(i).getKey().getLocation().getLongitude());
+            output.setLongitude(distanceOfAttrationList.get(i).getKey().getLocation().getLongitude());
             output.setLatitude(distanceOfAttrationList.get(i).getKey().getLocation().getLatitude());
             output.setDistance(distanceOfAttrationList.get(i).getValue());
             output.setRewardsPoint(rewardCentral.getAttractionRewardPoints(distanceOfAttrationList.get(i).getKey().getAttractionId(), getUser(userName).getUserId()));

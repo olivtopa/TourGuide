@@ -2,9 +2,9 @@ package tourGuide;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.VisitedLocation;
+import tourGuide.newRewardCentral.RewardCentral;
 import tourGuide.service.GpsUtilService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
