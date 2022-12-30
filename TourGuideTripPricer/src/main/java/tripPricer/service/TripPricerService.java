@@ -1,7 +1,8 @@
 package tripPricer.service;
 
 import org.springframework.stereotype.Service;
-import tripPricer.Provider;
+import tripPricer.model.Provider;
+
 
 import java.util.ArrayList;
 import java.util.HashSet;
