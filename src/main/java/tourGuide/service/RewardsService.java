@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.concurrent.*;
 
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
-
 
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.Location;

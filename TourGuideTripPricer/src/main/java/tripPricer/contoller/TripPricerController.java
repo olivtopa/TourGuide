@@ -19,8 +19,8 @@ public class TripPricerController {
 
     @RequestMapping("/getPrice")
     public List<Provider> getPrice (@RequestParam String apiKey, @RequestParam UUID attractionId,
-                                    @RequestParam int adults, @RequestParam int children, @RequestParam int nightsStay, @RequestParam int rewardsPoints){
-        return tripPricerService.getPrice(apiKey, attractionId, adults, children, nightsStay, rewardsPoints);
+                                    @RequestParam int adults, @RequestParam int children, @RequestParam int nightsStay, @RequestParam int rewardPoints){
+        return tripPricerService.getPrice(apiKey, attractionId, adults, children, nightsStay, rewardPoints);
     }
 
     @RequestMapping("/getProviderName")

@@ -1,8 +1,5 @@
 package tourGuide.service;
 
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
 import retrofit2.Retrofit;
