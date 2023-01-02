@@ -28,13 +28,12 @@ import tourGuide.user.User;
 import tourGuide.user.UserPreferences;
 import tourGuide.user.UserReward;
 import tripPricer.Provider;
-import tripPricer.TripPricer;
 
 @Service
 public class TourGuideService {
     private Logger logger = LoggerFactory.getLogger(TourGuideService.class);
     private final RewardsService rewardsService;
-    private final TripPricer tripPricer = new TripPricer();
+    private final TripPricerService tripPricerService = new TripPricerService();
     public final Tracker tracker;
     boolean testMode = true;
     private final ExecutorService executor = Executors.newFixedThreadPool(70);
@@ -84,9 +83,9 @@ public class TourGuideService {
     }
 
     public List<Provider> getTripDeals(User user) {
-        int cumulatativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
-        List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, user.getUserId(), user.getUserPreferences().getNumberOfAdults(),
-                user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), cumulatativeRewardPoints);
+        int cumulativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
+        List<Provider> providers = tripPricerService.getPrice(tripPricerApiKey, user.getUserId(), user.getUserPreferences().getNumberOfAdults(),
+                user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), cumulativeRewardPoints);
         user.setTripDeals(providers);
         return providers;
     }
@@ -140,17 +139,17 @@ public class TourGuideService {
             distanceAttractions.put(attractions.get(i), distance);
         });
 
-        List<Map.Entry<Attraction, Double>> distanceOfAttrationList = new ArrayList<>(distanceAttractions.entrySet());
-        distanceOfAttrationList.sort(Map.Entry.comparingByValue());
+        List<Map.Entry<Attraction, Double>> distanceOfAttractionList = new ArrayList<>(distanceAttractions.entrySet());
+        distanceOfAttractionList.sort(Map.Entry.comparingByValue());
         List<OutputAttraction> outputList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             OutputAttraction output = new OutputAttraction();
-            the5Attractions.put(distanceOfAttrationList.get(i).getKey(), distanceOfAttrationList.get(i).getValue());
-            output.setAttractionName(distanceOfAttrationList.get(i).getKey().getAttractionName());
-            output.setLongitude(distanceOfAttrationList.get(i).getKey().getLocation().getLongitude());
-            output.setLatitude(distanceOfAttrationList.get(i).getKey().getLocation().getLatitude());
-            output.setDistance(distanceOfAttrationList.get(i).getValue());
-            output.setRewardsPoint(rewardCentral.getAttractionRewardPoints(distanceOfAttrationList.get(i).getKey().getAttractionId(), getUser(userName).getUserId()));
+            the5Attractions.put(distanceOfAttractionList.get(i).getKey(), distanceOfAttractionList.get(i).getValue());
+            output.setAttractionName(distanceOfAttractionList.get(i).getKey().getAttractionName());
+            output.setLongitude(distanceOfAttractionList.get(i).getKey().getLocation().getLongitude());
+            output.setLatitude(distanceOfAttractionList.get(i).getKey().getLocation().getLatitude());
+            output.setDistance(distanceOfAttractionList.get(i).getValue());
+            output.setRewardsPoint(rewardCentral.getAttractionRewardPoints(distanceOfAttractionList.get(i).getKey().getAttractionId(), getUser(userName).getUserId()));
             outputList.add(i, output);
         }
         return outputList;

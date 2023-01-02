@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
-import tourGuide.newRewardCentral.RewardCentral;
+
 import tourGuide.user.User;
 import tourGuide.user.UserReward;
 
@@ -29,11 +29,11 @@ public class RewardsService {
     private int proximityBuffer = defaultProximityBuffer;
     private int attractionProximityRange = 200;
 
-    private final RewardCentral rewardsCentral;
+    private RewardCentralService rewardsCentralService;
 
-    public RewardsService(GpsUtilService gpsUtil, RewardCentral rewardCentral) {
+    public RewardsService(GpsUtilService gpsUtil, RewardCentralService rewardCentralService) {
         this.gpsUtil = gpsUtil;
-        this.rewardsCentral = rewardCentral;
+        this.rewardsCentralService = rewardCentralService;
     }
 
      public void setProximityBuffer(int proximityBuffer) {
@@ -71,7 +71,7 @@ public class RewardsService {
     }
 
     private int getRewardPoints(Attraction attraction, User user) {
-        return rewardsCentral.getAttractionRewardPoints(attraction.getAttractionId(), user.getUserId());
+        return rewardsCentralService.getRewardPoints(attraction.getAttractionId(), user.getUserId());
     }
 
     public double getDistance(Location loc1, Location loc2) {
