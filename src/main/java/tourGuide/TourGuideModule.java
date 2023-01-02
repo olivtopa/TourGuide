@@ -8,24 +8,25 @@ import org.springframework.context.annotation.Configuration;
 import org.zalando.jackson.datatype.money.MoneyModule;
 import tourGuide.newRewardCentral.RewardCentral;
 import tourGuide.service.GpsUtilService;
+import tourGuide.service.RewardCentralService;
 import tourGuide.service.RewardsService;
 
 @Configuration
 public class TourGuideModule {
 
 
-    @Bean
+   /* @Bean
     public RewardsService getRewardsService(GpsUtilService gpsUtilService) {
-        return new RewardsService(gpsUtilService, getRewardCentral());
+        return new RewardsService(gpsUtilService, rewardCentralService());
     }
 
     @Bean
-    public RewardCentral getRewardCentral() {
-        return new RewardCentral();
+    public RewardCentralService rewardCentralService() {
+        return new RewardCentralService();
     }
 
     @Bean
     public MoneyModule moneyModule() {
         return new MoneyModule();
-    }
+    }*/
 }

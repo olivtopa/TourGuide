@@ -5,6 +5,7 @@ import org.junit.Test;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newRewardCentral.RewardCentral;
 import tourGuide.service.GpsUtilService;
+import tourGuide.service.RewardCentralService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.UserPreferences;
@@ -17,7 +18,7 @@ public class TestUpdatePreferences {
     @Test
     public void updatePreferences() {
         GpsUtilService gpsUtil = new GpsUtilService();
-        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
+        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
         //GIVEN

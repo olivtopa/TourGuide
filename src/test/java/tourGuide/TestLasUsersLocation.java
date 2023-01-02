@@ -17,6 +17,7 @@ import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newRewardCentral.RewardCentral;
 import tourGuide.service.GpsUtilService;
+import tourGuide.service.RewardCentralService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 
@@ -57,7 +58,7 @@ public class TestLasUsersLocation {
 
         //Given
         GpsUtilService gpsUtil = new GpsUtilService();
-        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
+        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
         InternalTestHelper.setInternalUserNumber(5);
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 

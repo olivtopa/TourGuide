@@ -3,11 +3,13 @@ package tourGuide;
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.VisitedLocation;
-import tourGuide.newRewardCentral.RewardCentral;
 import tourGuide.service.GpsUtilService;
+import tourGuide.service.RewardCentralService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
@@ -21,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
 
+@SpringBootTest
 public class TestPerformance {
 
     @BeforeClass
@@ -48,11 +51,12 @@ public class TestPerformance {
      *          assertTrue(TimeUnit.MINUTES.toSeconds(20) >= TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()));
      */
 
-    //@Ignore
+    @Autowired
+
     @Test(timeout = 15 * 60 * 1000)
     public void highVolumeTrackLocation() throws ExecutionException, InterruptedException {
         GpsUtilService gpsUtil = new GpsUtilService();
-        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
+        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
         // Users should be incremented up to 100,000, and test finishes within 15 minutes
         InternalTestHelper.setInternalUserNumber(100000);
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
@@ -83,7 +87,7 @@ public class TestPerformance {
 
     public void highVolumeGetRewards() {
         GpsUtilService gpsUtil = new GpsUtilService();
-        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
+        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
 
         // Users should be incremented up to 100,000, and test finishes within 20 minutes
         InternalTestHelper.setInternalUserNumber(100000);

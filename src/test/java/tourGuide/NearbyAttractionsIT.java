@@ -16,6 +16,7 @@ import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.newRewardCentral.RewardCentral;
 import tourGuide.service.GpsUtilService;
+import tourGuide.service.RewardCentralService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 
@@ -60,7 +61,7 @@ public class NearbyAttractionsIT {
         //GIVEN
         GpsUtilService gpsUtil = new GpsUtilService();
 
-        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
+        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
 
 
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
