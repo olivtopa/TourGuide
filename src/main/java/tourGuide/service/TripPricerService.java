@@ -29,7 +29,7 @@ public class TripPricerService {
     }
 
     Retrofit retrofitTripPricer = new Retrofit.Builder()
-            .baseUrl("http://localhost:8083")
+            .baseUrl("http://localhost:8084")
             .addConverterFactory(JacksonConverterFactory.create())
             .build();
 

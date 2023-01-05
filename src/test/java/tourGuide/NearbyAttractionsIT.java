@@ -40,7 +40,7 @@ public class NearbyAttractionsIT {
     @BeforeClass
     public static void setup() throws IOException {
         mockWebServer = new MockWebServer();
-        mockWebServer.start(8081);
+        mockWebServer.start(8091);
     }
 
     @AfterClass

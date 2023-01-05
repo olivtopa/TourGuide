@@ -51,8 +51,6 @@ public class TestPerformance {
      *          assertTrue(TimeUnit.MINUTES.toSeconds(20) >= TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()));
      */
 
-    @Autowired
-
     @Test(timeout = 15 * 60 * 1000)
     public void highVolumeTrackLocation() throws ExecutionException, InterruptedException {
         GpsUtilService gpsUtil = new GpsUtilService();

@@ -27,7 +27,7 @@ public class GpsUtilService {
     }
 
     Retrofit tourGuideGPS = new Retrofit.Builder()
-            .baseUrl("http://localhost:8081")
+            .baseUrl("http://localhost:8082")
             .addConverterFactory(JacksonConverterFactory.create())
             .build();
 

@@ -19,7 +19,7 @@ public class RewardCentralService {
     }
 
     Retrofit rewardRetrofit = new Retrofit.Builder()
-            .baseUrl("http://localhost:8082")
+            .baseUrl("http://localhost:8083")
             .addConverterFactory(JacksonConverterFactory.create())
             .build();
 
