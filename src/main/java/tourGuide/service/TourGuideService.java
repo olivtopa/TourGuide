@@ -92,8 +92,7 @@ public class TourGuideService {
 
 
     public CompletableFuture<VisitedLocation> trackUserLocation(User user) {
-        CompletableFuture<VisitedLocation> cf = new CompletableFuture<>();
-        cf = CompletableFuture
+        CompletableFuture<VisitedLocation> cf = CompletableFuture
                 .supplyAsync(() -> gpsUtil.getUserLocation(user.getUserId()), executor)
                 .thenApply(visitedLocation -> {
                     user.addToVisitedLocations(visitedLocation);

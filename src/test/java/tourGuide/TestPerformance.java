@@ -1,5 +1,6 @@
 package tourGuide;
 
+import com.sun.xml.internal.ws.spi.db.DatabindingException;
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.Attraction;
+import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.service.GpsUtilService;
 import tourGuide.service.RewardCentralService;
@@ -15,6 +17,7 @@ import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
@@ -85,7 +88,8 @@ public class TestPerformance {
 
     public void highVolumeGetRewards() {
         GpsUtilService gpsUtil = new GpsUtilService();
-        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
+        RewardCentralService rewardCentralService = new RewardCentralService();
+        RewardsService rewardsService = new RewardsService(gpsUtil, rewardCentralService);
 
         // Users should be incremented up to 100,000, and test finishes within 20 minutes
         InternalTestHelper.setInternalUserNumber(100000);
