@@ -44,6 +44,8 @@ dependencies {
 
 
 
+    compile(name:'RewardCentral', ext:'jar')
+    compile(name:'TripPricer', ext:'jar')
     compile(name: 'TripPricer', ext: 'jar')
 
     testCompile("junit:junit")

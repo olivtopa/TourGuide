@@ -22,7 +22,6 @@ import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
-import tourGuide.newRewardCentral.RewardCentral;
 import tourGuide.tracker.Tracker;
 import tourGuide.user.User;
 import tourGuide.user.UserPreferences;
@@ -36,8 +35,8 @@ public class TourGuideService {
     private final TripPricerService tripPricerService = new TripPricerService();
     public final Tracker tracker;
     boolean testMode = true;
-    private final ExecutorService executor = Executors.newFixedThreadPool(70);
-    private final RewardCentral rewardCentral = new RewardCentral();
+    private final ExecutorService executor = Executors.newFixedThreadPool(1000);
+    private final RewardCentralService rewardCentralService = new RewardCentralService();
 
     public TourGuideService(GpsUtilService gpsUtil, RewardsService rewardsService) {
         this.gpsUtil = gpsUtil;
@@ -148,7 +147,7 @@ public class TourGuideService {
             output.setLongitude(distanceOfAttractionList.get(i).getKey().getLocation().getLongitude());
             output.setLatitude(distanceOfAttractionList.get(i).getKey().getLocation().getLatitude());
             output.setDistance(distanceOfAttractionList.get(i).getValue());
-            output.setRewardsPoint(rewardCentral.getAttractionRewardPoints(distanceOfAttractionList.get(i).getKey().getAttractionId(), getUser(userName).getUserId()));
+            output.setRewardsPoint(rewardCentralService.getRewardPoints(attractions.get(i).getAttractionId(),getUser(userName).getUserId()));
             outputList.add(i, output);
         }
         return outputList;

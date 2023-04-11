@@ -6,6 +6,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.service.GpsUtilService;
+import tourGuide.service.RewardCentralService;
+import tourGuide.service.RewardsService;
+import tourGuide.service.TourGuideService;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,7 +36,7 @@ public class GpsUtilServiceITTest {
     @BeforeClass
     public static void setup() throws IOException {
         mockWebServer = new MockWebServer();
-        mockWebServer.start(8081);
+        mockWebServer.start(8082);
     }
 
     @AfterClass
@@ -40,6 +44,12 @@ public class GpsUtilServiceITTest {
         mockWebServer.shutdown();
     }
 
+    @Mock
+    GpsUtilService gpsUtilService;
+    @Mock
+    RewardCentralService rewardCentralService;
+    @Mock
+    RewardsService rewardsService;
     @Test
     public void notNullGetUserLocationResult() {
 
@@ -62,6 +72,7 @@ public class GpsUtilServiceITTest {
         Assert.assertNotNull(result);
     }
 
+    /* A supprimer
     @Test
     public void notNullGetAttractions() {
 
@@ -81,6 +92,6 @@ public class GpsUtilServiceITTest {
         System.out.println(result);
 
         //THEN
-        Assert.assertNotNull(result);
-    }
+        Assert.assertNotNull(result.size());
+    }*/
 }

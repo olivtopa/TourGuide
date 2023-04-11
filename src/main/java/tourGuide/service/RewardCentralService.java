@@ -15,7 +15,7 @@ public class RewardCentralService {
 
     public interface GetRewardPoints {
         @GET("/getRewardPoints")
-        Call <Integer> rewardPoints (@Query("attractionId") UUID attractionId, @Query("userID") UUID userId);
+        Call <Integer> rewardPoints (@Query("attractionId") UUID attractionId, @Query("userId") UUID userId);
     }
 
     Retrofit rewardRetrofit = new Retrofit.Builder()

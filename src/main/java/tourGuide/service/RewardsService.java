@@ -22,7 +22,7 @@ public class RewardsService {
     private List<Attraction> attractions;
 
 
-    private final ExecutorService executor = Executors.newFixedThreadPool(70);
+    private final ExecutorService executor = Executors.newFixedThreadPool(1000);
 
     // proximity in miles
     private int defaultProximityBuffer = 10;

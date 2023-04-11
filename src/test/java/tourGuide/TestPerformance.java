@@ -1,14 +1,11 @@
 package tourGuide;
 
-import com.sun.xml.internal.ws.spi.db.DatabindingException;
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.Attraction;
-import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.service.GpsUtilService;
 import tourGuide.service.RewardCentralService;
@@ -100,7 +97,7 @@ public class TestPerformance {
         Attraction attraction = gpsUtil.getAttractions().get(0);
         List<User> allUsers = new ArrayList<>();
         allUsers = tourGuideService.getAllUsers();
-        allUsers.forEach(u -> u.addToVisitedLocations(new VisitedLocation()));
+        allUsers.forEach(u -> u.addToVisitedLocations(new VisitedLocation(u.getUserId(), attraction.getLocation(),new Date() )));
 
         allUsers.forEach(u -> rewardsService.calculateRewards(u));
 
