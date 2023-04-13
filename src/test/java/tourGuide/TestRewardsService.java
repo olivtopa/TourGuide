@@ -61,6 +61,9 @@ public class TestRewardsService {
 
     @Test
     public void userGetRewards() throws ExecutionException, InterruptedException {
+
+        RewardsService rewardsService = new RewardsService(gpsUtil, rewardCentralService);
+        rewardsService.setProximityBuffer(Integer.MAX_VALUE);
         //GIVEN
         InternalTestHelper.setInternalUserNumber(0);
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
@@ -90,7 +93,9 @@ public class TestRewardsService {
         tourGuideService.tracker.stopTracking();
 
         //THEN
-        assertEquals(user.getUserId(),resultat.getUserId());
+        Thread.sleep(1000);
+        //TODO supprimer
+        assertEquals(2,user.getUserRewards().size());
         System.out.println("userID :" +resultat);
     }
 
@@ -118,11 +123,12 @@ public class TestRewardsService {
 
     //@Ignore // Needs fixed - can throw ConcurrentModificationException
     @Test
-    public void calculateRewardsTest() throws ExecutionException, InterruptedException {
+    public void nearAllAttractions() throws ExecutionException, InterruptedException {
+        RewardsService rewardsService = new RewardsService(gpsUtil, rewardCentralService);
         InternalTestHelper.setInternalUserNumber(1);
-        TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
         //GIVEN
         rewardsService.setProximityBuffer(Integer.MAX_VALUE);
+        User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 
         List<Attraction> attractions = new ArrayList();
         Attraction attraction = new Attraction();
@@ -131,11 +137,20 @@ public class TestRewardsService {
         attraction.setState("CA");
         attractions.add(attraction);
         Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
-        Mockito.doNothing().when(rewardsService).calculateRewards(tourGuideService.getAllUsers().get(0));
+        VisitedLocation visitedLocation = new VisitedLocation();
+        visitedLocation.setUserId(user.getUserId());
+        visitedLocation.setLocation(attraction.getLocation());
+        visitedLocation.setTimeVisited(user.getLatestLocationTimestamp());
+
+        Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
+        System.out.println(attraction.getAttractionName());
+        user.addToVisitedLocations(visitedLocation);
+
+
         //WHEN
-        rewardsService.calculateRewards(tourGuideService.getAllUsers().get(0));
-        tourGuideService.tracker.stopTracking();
-        List<UserReward> userRewards = tourGuideService.getUserRewards(tourGuideService.getAllUsers().get(0));
+        rewardsService.calculateRewards(user);
+        Thread.sleep(1000);
+        List<UserReward> userRewards = user.getUserRewards();
         //THEN
         assertEquals(gpsUtil.getAttractions().size(), userRewards.size());
     }

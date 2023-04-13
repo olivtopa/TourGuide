@@ -18,8 +18,7 @@ import tourGuide.user.UserReward;
 public class RewardsService {
     private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
     private GpsUtilService gpsUtil;
-    GpsUtilService gpsUtilService = new GpsUtilService();
-    private List<Attraction> attractions;
+      private List<Attraction> attractions;
 
 
     private final ExecutorService executor = Executors.newFixedThreadPool(1000);
@@ -88,7 +87,7 @@ public class RewardsService {
         if (attractions != null) {
             return attractions;
         }
-        attractions = gpsUtilService.getAttractions();
+        attractions = gpsUtil.getAttractions();
         return attractions;
     }
 
