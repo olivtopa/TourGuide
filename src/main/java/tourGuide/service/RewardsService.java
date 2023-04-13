@@ -46,11 +46,8 @@ public class RewardsService {
 
     public void calculateRewards(User user) {
         List<VisitedLocation> userLocations = new ArrayList<>(user.getVisitedLocations());
-
-
         for (VisitedLocation visitedLocation : userLocations) {
             this.getAttractions().stream().forEach(attraction -> {
-
                 if (user.getUserRewards().stream().filter(r -> r.getAttraction().getAttractionName().equals(attraction.getAttractionName())).count() == 0) {
                     if (nearAttraction(visitedLocation, attraction)) {
                         CompletableFuture.runAsync(() ->
@@ -58,8 +55,7 @@ public class RewardsService {
                     }
                 }
             });
-        }
-        ;
+        };
     }
 
     public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
@@ -87,7 +83,7 @@ public class RewardsService {
         double statuteMiles = STATUTE_MILES_PER_NAUTICAL_MILE * nauticalMiles;
         return statuteMiles;
     }
-// Lazi Init pour eviter l'init a chaque instenciation de la classe
+// Lazi Init pour eviter l'init a chaque instantiation de la classe
     private List<Attraction> getAttractions() {
         if (attractions != null) {
             return attractions;

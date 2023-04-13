@@ -127,23 +127,27 @@ public class TestRewardsService {
 
     //@Ignore // Needs fixed - can throw ConcurrentModificationException
     @Test
-    public void nearAllAttractions() throws ExecutionException, InterruptedException {
-        GpsUtilService gpsUtil = new GpsUtilService();
-        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
-        rewardsService.setProximityBuffer(Integer.MAX_VALUE);
-
+    public void calculateRewardsTest() throws ExecutionException, InterruptedException {
+        //RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
         InternalTestHelper.setInternalUserNumber(1);
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
-        String nom = tourGuideService.getAllUsers().get(0).getUserName();
+        //GIVEN
+        rewardsService.setProximityBuffer(Integer.MAX_VALUE);
 
-        System.out.println(nom);
-
-
-        //rewardsService.calculateRewards(tourGuideService.getAllUsers().get(0));
-       // List<UserReward> userRewards = tourGuideService.getUserRewards(tourGuideService.getAllUsers().get(0));
-       // tourGuideService.tracker.stopTracking();
-
-        //assertEquals(gpsUtil.getAttractions().size(), userRewards.size());
+        List<Attraction> attractions = new ArrayList();
+        Attraction attraction = new Attraction();
+        attraction.setAttractionName("Disneyland");
+        attraction.setCity("Anaheim");
+        attraction.setState("CA");
+        attractions.add(attraction);
+        Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
+        Mockito.doNothing().when(rewardsService).calculateRewards(tourGuideService.getAllUsers().get(0));
+        //WHEN
+        rewardsService.calculateRewards(tourGuideService.getAllUsers().get(0));
+        tourGuideService.tracker.stopTracking();
+        List<UserReward> userRewards = tourGuideService.getUserRewards(tourGuideService.getAllUsers().get(0));
+        //THEN
+        assertEquals(gpsUtil.getAttractions().size(), userRewards.size());
     }
 
 }

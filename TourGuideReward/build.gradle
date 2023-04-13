@@ -33,7 +33,6 @@ targetCompatibility = 1.8
 
 dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
-    annotationProcessor 'com.squareup.retrofit:retrofit:1.9.0'
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile group: 'org.javamoney', name: 'moneta', version: '1.3'
