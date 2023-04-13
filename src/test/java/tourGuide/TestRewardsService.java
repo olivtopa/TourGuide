@@ -9,13 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.internal.invocation.mockref.MockWeakReference;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.Attraction;
@@ -29,10 +26,8 @@ import tourGuide.user.UserReward;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
@@ -64,10 +59,8 @@ public class TestRewardsService {
     @Mock
     private RewardsService rewardsService;
 
-
     @Test
     public void userGetRewards() throws ExecutionException, InterruptedException {
-
         //GIVEN
         InternalTestHelper.setInternalUserNumber(0);
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
@@ -91,8 +84,6 @@ public class TestRewardsService {
         //Mock des appels de méthodes de tourGuideService.trackUserLocation
         Mockito.when(gpsUtil.getUserLocation(user.getUserId())).thenReturn(visitedLocation);
         System.out.println("le visitedLocation.getLocation() :"+ visitedLocation.getLocation());
-        //Mockito.doNothing().when(rewardsService).calculateRewards(user);
-        //UserReward userReward = new UserReward(visitedLocation,attraction);
 
         //WHEN
         VisitedLocation resultat = tourGuideService.trackUserLocation(user).join();
@@ -128,7 +119,6 @@ public class TestRewardsService {
     //@Ignore // Needs fixed - can throw ConcurrentModificationException
     @Test
     public void calculateRewardsTest() throws ExecutionException, InterruptedException {
-        //RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
         InternalTestHelper.setInternalUserNumber(1);
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
         //GIVEN
