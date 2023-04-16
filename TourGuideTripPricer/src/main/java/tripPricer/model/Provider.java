@@ -3,6 +3,7 @@ package tripPricer.model;
 import java.util.UUID;
 
 public class Provider {
+
     public final String name;
     public final double price;
     public final UUID tripId;
@@ -12,4 +13,5 @@ public class Provider {
         this.tripId = tripId;
         this.price = price;
     }
+
 }
