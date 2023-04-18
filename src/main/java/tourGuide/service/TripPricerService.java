@@ -7,7 +7,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import tripPricer.Provider;
+import tourGuide.NewTripPricer.Provider;
+;
 
 import java.io.IOException;
 import java.util.List;
