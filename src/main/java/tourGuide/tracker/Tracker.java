@@ -9,7 +9,8 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.util.StopWatch;
+
+import org.apache.commons.lang3.time.StopWatch;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
 
@@ -47,7 +48,7 @@ public class Tracker extends Thread {
             stopWatch.start();
             users.forEach(u -> tourGuideService.trackUserLocation(u));
             stopWatch.stop();
-            logger.debug("Tracker Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTotalTimeMillis()) + " milliseconds.");
+            logger.debug("Tracker Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTtime()) + " seconds.");
             stopWatch.reset();
             try {
                 logger.debug("Tracker sleeping");
