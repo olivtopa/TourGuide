@@ -2,6 +2,7 @@ package tourGuide;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import tourGuide.NewTripPricer.Provider;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.newRewardCentral.RewardCentral;
@@ -10,7 +11,7 @@ import tourGuide.service.RewardCentralService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
-import tripPricer.Provider;
+
 
 import java.util.List;
 import java.util.UUID;

@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  tourguide: # a construire
+    image: tourguide:1.0.0
+    depends_on:
+      - tour_guide_trip_pricer
+    ports:
+      - "8088:8088"
+    networks:
+      - backend
+
+  tour_guide_trip_pricer:
+    image: trippricer:1.0.0
+    ports:
+      - "8084:8084"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: "host"
