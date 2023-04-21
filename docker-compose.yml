@@ -4,9 +4,9 @@ services:
   tourguide:
     image: tourguide:1.0.0
     depends_on:
-      - trippricer:1.0.0
-      - tourguidegps:1.0.0
-      - rewardcentral:1.0.0
+      - tourguidetrippricer
+      - tourguidegps
+      - tourguidereward
     ports:
       - "8088:8088"
     networks:
@@ -32,7 +32,7 @@ services:
       - "8083:8083"
     networks:
       - backend
-     
+
 networks:
   backend:
     driver: "host"
