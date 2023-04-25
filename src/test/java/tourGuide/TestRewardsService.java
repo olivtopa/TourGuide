@@ -36,27 +36,13 @@ import static org.junit.Assert.assertTrue;
 @RunWith(MockitoJUnitRunner.class)
 public class TestRewardsService {
 
-    private static MockWebServer mockWebServer;
 
-    @Autowired
-    private MockMvc mockMvc;
 
-    @BeforeClass
-    public static void setup() throws IOException{
-        mockWebServer = new MockWebServer();
-        mockWebServer.start(8081);
-    }
-
-    @AfterClass
-    public static void tearDown() throws  IOException{
-        mockWebServer.shutdown();
-    }
-
-    @Mock
+    //@Mock
     private GpsUtilService gpsUtil;
-    @Mock
+    //@Mock
     private RewardCentralService rewardCentralService;
-    @Mock
+    //@Mock
     private RewardsService rewardsService;
 
     @Test
@@ -80,12 +66,12 @@ public class TestRewardsService {
         visitedLocation.setLocation(attraction.getLocation());
         visitedLocation.setTimeVisited(user.getLatestLocationTimestamp());
 
-        Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
+//        Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
         System.out.println(attraction.getAttractionName());
         user.addToVisitedLocations(visitedLocation);
 
         //Mock des appels de méthodes de tourGuideService.trackUserLocation
-        Mockito.when(gpsUtil.getUserLocation(user.getUserId())).thenReturn(visitedLocation);
+//        Mockito.when(gpsUtil.getUserLocation(user.getUserId())).thenReturn(visitedLocation);
         System.out.println("le visitedLocation.getLocation() :"+ visitedLocation.getLocation());
 
         //WHEN
@@ -93,7 +79,7 @@ public class TestRewardsService {
         tourGuideService.tracker.stopTracking();
 
         //THEN
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
         //TODO supprimer
         assertEquals(2,user.getUserRewards().size());
         System.out.println("userID :" +resultat);
@@ -102,12 +88,6 @@ public class TestRewardsService {
     @Test
     public void isWithinAttractionProximity() {
 
-        MockResponse mockResponse = new MockResponse()
-                .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-                .setResponseCode(200)
-                .setBody("{}");
-
-        mockWebServer.enqueue(mockResponse);
 
         //GIVEN
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());

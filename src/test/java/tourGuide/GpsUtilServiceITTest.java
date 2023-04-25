@@ -2,11 +2,8 @@ package tourGuide;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,38 +25,8 @@ import java.util.UUID;
 @AutoConfigureMockMvc
 public class GpsUtilServiceITTest {
 
-    private static MockWebServer mockWebServer;
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @BeforeClass
-    public static void setup() throws IOException {
-        mockWebServer = new MockWebServer();
-        mockWebServer.start(8082);
-    }
-
-    @AfterClass
-    public static void tearDown() throws IOException {
-        mockWebServer.shutdown();
-    }
-
-    @Mock
-    GpsUtilService gpsUtilService;
-    @Mock
-    RewardCentralService rewardCentralService;
-    @Mock
-    RewardsService rewardsService;
     @Test
     public void notNullGetUserLocationResult() {
-
-        MockResponse mockResponse = new MockResponse()
-                .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-                .setResponseCode(200)
-                .setBody("{}");
-
-        mockWebServer.enqueue(mockResponse);
-
         GpsUtilService gpsUtilService = new GpsUtilService();
 
         //GIVEN
@@ -72,16 +39,9 @@ public class GpsUtilServiceITTest {
         Assert.assertNotNull(result);
     }
 
-    /* A supprimer
+
     @Test
     public void notNullGetAttractions() {
-
-        MockResponse mockResponse = new MockResponse()
-                .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-                .setResponseCode(200)
-                .setBody("{}");
-
-        mockWebServer.enqueue(mockResponse);
 
         //GIVEN
         GpsUtilService gpsUtilService = new GpsUtilService();
@@ -89,9 +49,7 @@ public class GpsUtilServiceITTest {
         //WHEN
         List<Attraction> result = gpsUtilService.getAttractions();
 
-        System.out.println(result);
-
         //THEN
         Assert.assertNotNull(result.size());
-    }*/
+    }
 }
