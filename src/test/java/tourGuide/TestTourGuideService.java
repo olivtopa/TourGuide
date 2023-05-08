@@ -6,10 +6,7 @@ import tourGuide.NewTripPricer.Provider;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.newRewardCentral.RewardCentral;
-import tourGuide.service.GpsUtilService;
-import tourGuide.service.RewardCentralService;
-import tourGuide.service.RewardsService;
-import tourGuide.service.TourGuideService;
+import tourGuide.service.*;
 import tourGuide.user.User;
 
 
@@ -115,6 +112,7 @@ public class TestTourGuideService {
     public void getTripDeals() {
         //GIVEN
         GpsUtilService gpsUtil = new GpsUtilService();
+        TripDealService tripDealService= new TripDealService();
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
         InternalTestHelper.setInternalUserNumber(0);
@@ -123,7 +121,7 @@ public class TestTourGuideService {
         int nbOfChildren = tourGuideService.getUser(userName).getUserPreferences().getNumberOfChildren();
 
         //WHEN
-        List<Provider> listOfProvider = tourGuideService.getTripDeals(tourGuideService.getUser(userName));
+        List<Provider> listOfProvider = tripDealService.getTripDeals(tourGuideService.getUser(userName));
 
         //THEN
         assertNotNull(listOfProvider);
