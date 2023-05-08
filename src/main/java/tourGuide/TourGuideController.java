@@ -14,6 +14,7 @@ import tourGuide.NewTripPricer.Provider;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.service.TourGuideService;
+import tourGuide.service.TripDealService;
 import tourGuide.user.User;
 import tourGuide.user.UserPreferences;
 
@@ -24,6 +25,8 @@ public class TourGuideController {
 
     @Autowired
     TourGuideService tourGuideService;
+    @Autowired
+    TripDealService tripDealService;
 
     @RequestMapping("/")
     public String index() {
@@ -71,7 +74,7 @@ public class TourGuideController {
 
     @RequestMapping("/getTripDeals")
     public List<Provider> getTripDeals(@RequestParam String userName) {
-        List<Provider> providers = tourGuideService.getTripDeals(getUser(userName));
+        List<Provider> providers = tripDealService.getTripDeals(getUser(userName));
         return providers;
     }
 

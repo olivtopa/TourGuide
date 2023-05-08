@@ -34,7 +34,6 @@ public class GpsUtilService {
 
     public VisitedLocation getUserLocation(UUID userId) {
         GetUserLocation retrofitUserLocation = tourGuideGPS.create(GetUserLocation.class);
-
         try {
             Call<VisitedLocation> callUserLocationSync = retrofitUserLocation.userLocation(userId);
             return callUserLocationSync.execute().body();

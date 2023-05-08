@@ -37,59 +37,66 @@ import static org.junit.Assert.assertTrue;
 public class TestRewardsService {
 
 
+    //@Mock
+  //  private GpsUtilService gpsUtil; // client d'appel du module TourGuideGPS
+
 
     //@Mock
-    private GpsUtilService gpsUtil;
+    private RewardCentralService rewardCentralService;  // client d'appel du module TourGuide Reward
     //@Mock
-    private RewardCentralService rewardCentralService;
-    //@Mock
-    private RewardsService rewardsService;
+    private RewardsService rewardsService;  // Service de TourGuide
 
     @Test
     public void userGetRewards() throws ExecutionException, InterruptedException {
 
+        GpsUtilService gpsUtil = new GpsUtilService();
         RewardsService rewardsService = new RewardsService(gpsUtil, rewardCentralService);
         rewardsService.setProximityBuffer(Integer.MAX_VALUE);
         //GIVEN
-        InternalTestHelper.setInternalUserNumber(0);
+        InternalTestHelper.setInternalUserNumber(1);
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
-        User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-        List<Attraction> attractions = new ArrayList();
+        User user = tourGuideService.getAllUsers().get(0);
+        VisitedLocation visitedLocation = tourGuideService.getUserLocation(user);
+        System.out.println("nombre de users ; " + tourGuideService.getAllUsers().size());
+        //User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+       /* List<Attraction> attractions = new ArrayList();
         Attraction attraction = new Attraction();
         attraction.setAttractionName("Disneyland");
         attraction.setCity("Anaheim");
         attraction.setState("CA");
-        attractions.add(attraction);
+        attractions.add(attraction);*/
 
-        VisitedLocation visitedLocation = new VisitedLocation();
+       /* VisitedLocation visitedLocation = new VisitedLocation();
         visitedLocation.setUserId(user.getUserId());
-        visitedLocation.setLocation(attraction.getLocation());
-        visitedLocation.setTimeVisited(user.getLatestLocationTimestamp());
+        visitedLocation.setLocation(gpsUtil.getUserLocation(user.getUserId()).getLocation());
+        visitedLocation.setTimeVisited(user.getLatestLocationTimestamp());*/
 
-//        Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
-        System.out.println(attraction.getAttractionName());
+        //Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
+        System.out.println(gpsUtil.getAttractions().get(0).getAttractionName());
         user.addToVisitedLocations(visitedLocation);
+        System.out.println(user.getVisitedLocations().get(0).getUserId());
 
         //Mock des appels de méthodes de tourGuideService.trackUserLocation
 //        Mockito.when(gpsUtil.getUserLocation(user.getUserId())).thenReturn(visitedLocation);
         System.out.println("le visitedLocation.getLocation() :"+ visitedLocation.getLocation());
 
         //WHEN
-        VisitedLocation resultat = tourGuideService.trackUserLocation(user).join();
-        tourGuideService.tracker.stopTracking();
+        //VisitedLocation resultat = tourGuideService.trackUserLocation(user).join();
+        //tourGuideService.tracker.stopTracking();
+        rewardsService.calculateRewards(user);
 
         //THEN
         //Thread.sleep(1000);
         //TODO supprimer
         assertEquals(2,user.getUserRewards().size());
-        System.out.println("userID :" +resultat);
+       // System.out.println("userID :" +resultat);
     }
 
     @Test
     public void isWithinAttractionProximity() {
 
-
         //GIVEN
+        GpsUtilService gpsUtil = new GpsUtilService();
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
         List<Attraction> attractions = new ArrayList();
         Attraction attraction = new Attraction();
@@ -104,6 +111,8 @@ public class TestRewardsService {
     //@Ignore // Needs fixed - can throw ConcurrentModificationException
     @Test
     public void nearAllAttractions() throws ExecutionException, InterruptedException {
+
+        GpsUtilService gpsUtil = new GpsUtilService();
         RewardsService rewardsService = new RewardsService(gpsUtil, rewardCentralService);
         InternalTestHelper.setInternalUserNumber(1);
         //GIVEN

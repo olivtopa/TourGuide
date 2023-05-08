@@ -82,13 +82,13 @@ public class TourGuideService {
         }
     }
 
-    public List<Provider> getTripDeals(User user) {
+   /* public List<Provider> getTripDeals(User user) {
         int cumulativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
         List<Provider> providers = tripPricerService.getPrice(tripPricerApiKey, user.getUserId(), user.getUserPreferences().getNumberOfAdults(),
                 user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), cumulativeRewardPoints);
         user.setTripDeals(providers);
         return providers;
-    }
+    }*/
 
 
     public CompletableFuture<VisitedLocation> trackUserLocation(User user) {
