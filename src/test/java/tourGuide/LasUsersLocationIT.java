@@ -14,7 +14,7 @@ import java.util.Map;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TestLasUsersLocation {
+public class LasUsersLocationIT {
     @Test
     public void isListOfLocationEmpty() {
 

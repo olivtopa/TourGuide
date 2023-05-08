@@ -3,9 +3,6 @@ package tourGuide;
 
 import org.junit.Test;
 
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.Attraction;
@@ -26,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @SpringBootTest
-public class TestRewardsService {
+public class RewardsServiceIT {
     private RewardCentralService rewardCentralService;  // client d'appel du module TourGuide Reward
     private RewardsService rewardsService;  // Service de TourGuide
     @Test

@@ -15,13 +15,9 @@ import java.util.List;
 
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class TestNearestAttractions {
-
-
     @Test
     public void the5nearestAttractions() {
-
 
         //Given
         GpsUtilService gpsUtil = new GpsUtilService();
@@ -37,8 +33,6 @@ public class TestNearestAttractions {
         //Then
         Assert.assertNotNull(resultat);
         Assert.assertEquals(5, resultat.size());
-
-
     }
 
 }
