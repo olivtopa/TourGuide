@@ -5,7 +5,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import tourGuide.NewTripPricer.Provider;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.VisitedLocation;
-import tourGuide.newRewardCentral.RewardCentral;
 import tourGuide.service.*;
 import tourGuide.user.User;
 
@@ -18,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 import static org.junit.Assert.*;
 
 @SpringBootTest
-public class TestTourGuideService {
+public class TourGuideServiceIT {
 
     @Test
     public void getUserLocation() throws ExecutionException, InterruptedException {
@@ -37,55 +36,8 @@ public class TestTourGuideService {
         assertTrue(visitedLocation.join().getUserId().equals(user.getUserId()));
     }
 
-    @Test
-    public void addUser() throws ExecutionException, InterruptedException {
 
-        //GIVEN
-        GpsUtilService gpsUtil = new GpsUtilService();
-        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
-        TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
-        User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-        User user2 = new User(UUID.randomUUID(), "jon2", "000", "jon2@tourGuide.com");
-
-        tourGuideService.addUser(user);
-        tourGuideService.addUser(user2);
-
-        //WHEN
-        User retrivedUser = tourGuideService.getUser(user.getUserName());
-        User retrivedUser2 = tourGuideService.getUser(user2.getUserName());
-
-        tourGuideService.tracker.stopTracking();
-
-        //THEN
-        assertEquals(user, retrivedUser);
-        assertEquals(user2, retrivedUser2);
-    }
-
-    @Test
-    public void getAllUsers() throws ExecutionException, InterruptedException {
-
-        //GIVEN
-        GpsUtilService gpsUtil = new GpsUtilService();
-        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
-        InternalTestHelper.setInternalUserNumber(0);
-        TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
-
-        User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-        User user2 = new User(UUID.randomUUID(), "jon2", "000", "jon2@tourGuide.com");
-
-        tourGuideService.addUser(user);
-        tourGuideService.addUser(user2);
-
-        //WHEN
-        List<User> allUsers = tourGuideService.getAllUsers();
-
-        tourGuideService.tracker.stopTracking();
-
-        //THEN
-        assertTrue(allUsers.contains(user));
-        assertTrue(allUsers.contains(user2));
-    }
 
     @Test
     public void trackUser() throws ExecutionException, InterruptedException {
@@ -112,7 +64,7 @@ public class TestTourGuideService {
     public void getTripDeals() {
         //GIVEN
         GpsUtilService gpsUtil = new GpsUtilService();
-        TripDealService tripDealService= new TripDealService();
+        TripDealService tripDealService= new TripDealService(new TripPricerService());
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
         InternalTestHelper.setInternalUserNumber(0);

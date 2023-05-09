@@ -33,7 +33,6 @@ import tourGuide.user.UserReward;
 public class TourGuideService {
     private Logger logger = LoggerFactory.getLogger(TourGuideService.class);
     private final RewardsService rewardsService;
-    private final TripPricerService tripPricerService = new TripPricerService();
     public final Tracker tracker;
     boolean testMode = true;
     private final ExecutorService executor = Executors.newFixedThreadPool(1000);

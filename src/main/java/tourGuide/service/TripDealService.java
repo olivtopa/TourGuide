@@ -1,12 +1,18 @@
 package tourGuide.service;
 
+import org.springframework.stereotype.Service;
 import tourGuide.NewTripPricer.Provider;
 import tourGuide.user.User;
 
 import java.util.List;
 
+@Service
 public class TripDealService {
-    private final TripPricerService tripPricerService = new TripPricerService();
+
+    public TripDealService(TripPricerService tripPricerService){
+        this.tripPricerService = tripPricerService;
+    }
+    private final TripPricerService tripPricerService;
     private static final String tripPricerApiKey = "test-server-api-key";
 
     public List<Provider> getTripDeals(User user) {
