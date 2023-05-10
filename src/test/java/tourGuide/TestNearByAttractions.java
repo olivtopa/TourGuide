@@ -3,6 +3,7 @@ package tourGuide;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
@@ -16,6 +17,7 @@ import java.util.List;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+@SpringBootTest
 public class TestNearByAttractions {
 
 
@@ -41,10 +43,13 @@ public class TestNearByAttractions {
         visitedLocation.setLocation(location);
         System.out.println("Location: "+location.getLatitude()+" , "+location.getLongitude());
         System.out.println(("Attraction: "+attraction.getLocation().getLongitude() + " , "+attraction.getLocation().getLatitude()));
-        TourGuideService tourGuideService=new TourGuideService(gpsUtil,rewardsService);
+
         Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
+        Mockito.when(rewardsService.isWithinAttractionProximity(attraction, visitedLocation.getLocation())).
+                thenReturn(true);
 
         //When
+        TourGuideService tourGuideService=new TourGuideService(gpsUtil,rewardsService);
         List<Attraction> result = tourGuideService.getNearByAttractions(visitedLocation);
 
        //Then
