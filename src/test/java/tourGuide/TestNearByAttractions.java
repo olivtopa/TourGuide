@@ -7,19 +7,24 @@ import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.service.GpsUtilService;
+import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class TestNearByAttractions {
 
 
     @Mock
     GpsUtilService gpsUtil;
+    @Mock
+    RewardsService rewardsService;
     @Test
     public void attractionsAreNotNearUsers(){
-
 
         //Given
         Location location = new Location();
@@ -34,12 +39,15 @@ public class TestNearByAttractions {
 
         VisitedLocation visitedLocation =new VisitedLocation();
         visitedLocation.setLocation(location);
-        //TourGuideService tourGuideService=new TourGuideService(gpsUtil,reward);
+        System.out.println("Location: "+location.getLatitude()+" , "+location.getLongitude());
+        System.out.println(("Attraction: "+attraction.getLocation().getLongitude() + " , "+attraction.getLocation().getLatitude()));
+        TourGuideService tourGuideService=new TourGuideService(gpsUtil,rewardsService);
         Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
 
         //When
+        List<Attraction> result = tourGuideService.getNearByAttractions(visitedLocation);
 
-       // ToDO A terminer
-
+       //Then
+        assertTrue(result.isEmpty());
     }
 }
