@@ -1,8 +1,7 @@
-package tourGuide;
+package tourGuide.integration;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.Location;
@@ -13,7 +12,6 @@ import tourGuide.service.TourGuideService;
 import java.util.Map;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class LasUsersLocationIT {
     @Test
     public void isListOfLocationEmpty() {

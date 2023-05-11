@@ -4,13 +4,24 @@ import tourGuide.newGpsUtil.Attraction;
 
 public class OutputAttraction {
 
-    Attraction attraction;
-    String attractionName;
-    Double longitude;
-    Double latitude;
-    Double distance;
-    int rewardsPoint;
+  private Attraction attraction;
+    private String attractionName;
+   private Double longitude;
+   private Double latitude;
+   private Double distance;
+    private int rewardsPoint;
 
+    public Attraction getAttraction() {
+        return attraction;
+    }
+
+    public void setAttraction(Attraction attraction) {
+        this.attraction = attraction;
+    }
+
+    public String getAttractionName() {
+        return attractionName;
+    }
 
     public void setAttractionName(String attractionName) {
         this.attractionName = attractionName;

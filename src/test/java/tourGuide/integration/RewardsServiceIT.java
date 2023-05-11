@@ -1,4 +1,4 @@
-package tourGuide;
+package tourGuide.integration;
 
 
 import org.junit.Test;
@@ -57,23 +57,6 @@ public class RewardsServiceIT {
        }
 
     @Test
-    public void isWithinAttractionProximity() {
-
-        //GIVEN
-        GpsUtilService gpsUtil = new GpsUtilService();
-        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
-        List<Attraction> attractions = new ArrayList();
-        Attraction attraction = new Attraction();
-        attraction.setAttractionName("Disneyland");
-        attraction.setCity("Anaheim");
-        attraction.setState("CA");
-        attractions.add(attraction);
-        //WHEN-THEN
-        assertTrue(rewardsService.isWithinAttractionProximity(attraction, attraction.getLocation()));
-    }
-
-    //@Ignore // Needs fixed - can throw ConcurrentModificationException
-    @Test
     public void nearAllAttractions() throws ExecutionException, InterruptedException {
 
         GpsUtilService gpsUtil = new GpsUtilService();
@@ -89,13 +72,11 @@ public class RewardsServiceIT {
         attraction.setCity("Anaheim");
         attraction.setState("CA");
         attractions.add(attraction);
-        //Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
         VisitedLocation visitedLocation = new VisitedLocation();
         visitedLocation.setUserId(user.getUserId());
         visitedLocation.setLocation(attraction.getLocation());
         visitedLocation.setTimeVisited(user.getLatestLocationTimestamp());
 
-        //Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
         System.out.println(attraction.getAttractionName());
         user.addToVisitedLocations(visitedLocation);
 

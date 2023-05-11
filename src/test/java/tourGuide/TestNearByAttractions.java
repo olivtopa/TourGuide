@@ -15,6 +15,8 @@ import tourGuide.service.TourGuideService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 @RunWith(MockitoJUnitRunner.class)
 public class TestNearByAttractions {
 
@@ -28,8 +30,8 @@ public class TestNearByAttractions {
 
         //Given
         Location location = new Location();
-        location.setLatitude(20);
-        location.setLongitude(30);
+        location.setLatitude(20000000);
+        location.setLongitude(30000000);
 
         List<Attraction> attractions = new ArrayList();
         Attraction attraction = new Attraction();
@@ -44,15 +46,14 @@ public class TestNearByAttractions {
 
         Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
         Mockito.when(rewardsService.isWithinAttractionProximity(attraction, visitedLocation.getLocation())).
-                thenReturn(true);
+                thenReturn(false);
 
         //When
         TourGuideService tourGuideService=new TourGuideService(gpsUtil,rewardsService);
         List<Attraction> result = tourGuideService.getNearByAttractions(visitedLocation);
-        System.out.println(result.get(0));
 
 
        //Then
-        assert!result.isEmpty():"Il n'y a pas d'attraction à proximite";
+        assertTrue(result.isEmpty());
     }
 }

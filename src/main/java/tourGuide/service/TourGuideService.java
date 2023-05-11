@@ -81,15 +81,6 @@ public class TourGuideService {
         }
     }
 
-   /* public List<Provider> getTripDeals(User user) {
-        int cumulativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
-        List<Provider> providers = tripPricerService.getPrice(tripPricerApiKey, user.getUserId(), user.getUserPreferences().getNumberOfAdults(),
-                user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), cumulativeRewardPoints);
-        user.setTripDeals(providers);
-        return providers;
-    }*/
-
-
     public CompletableFuture<VisitedLocation> trackUserLocation(User user) {
         CompletableFuture<VisitedLocation> cf = CompletableFuture
                 .supplyAsync(() -> gpsUtil.getUserLocation(user.getUserId()), executor)
@@ -148,6 +139,7 @@ public class TourGuideService {
             output.setLatitude(distanceOfAttractionList.get(i).getKey().getLocation().getLatitude());
             output.setDistance(distanceOfAttractionList.get(i).getValue());
             output.setRewardsPoint(rewardCentralService.getRewardPoints(attractions.get(i).getAttractionId(),getUser(userName).getUserId()));
+            output.setAttraction(distanceOfAttractionList.get(i).getKey());
             outputList.add(i, output);
         }
         return outputList;
