@@ -1,15 +1,19 @@
 package tourGuide.integration;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import tourGuide.NewTripPricer.Provider;
+import tourGuide.OutputAttraction;
 import tourGuide.helper.InternalTestHelper;
+import tourGuide.newGpsUtil.Attraction;
+import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.service.*;
 import tourGuide.user.User;
 
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -36,9 +40,6 @@ public class TourGuideServiceIT {
         assertTrue(visitedLocation.join().getUserId().equals(user.getUserId()));
     }
 
-
-
-
     @Test
     public void trackUser() throws ExecutionException, InterruptedException {
 
@@ -59,26 +60,60 @@ public class TourGuideServiceIT {
         assertEquals(user.getUserId(), visitedLocation.join().getUserId());
     }
 
+    @Test
+    public void the5nearestAttractions() {
+
+        //Given
+        GpsUtilService gpsUtil = new GpsUtilService();
+        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
+        InternalTestHelper.setInternalUserNumber(1);
+        TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
+        tourGuideService.getUser("internalUser0");
+
+        //When
+        List<OutputAttraction> resultat = tourGuideService.the5NearestAttractions("internalUser0");
+        System.out.println(resultat);
+
+        //Then
+        Assert.assertNotNull(resultat);
+        Assert.assertEquals(5, resultat.size());
+    }
 
     @Test
-    public void getTripDeals() {
+    public void isListOfLocationEmpty() {
+
+        //Given
+        GpsUtilService gpsUtil = new GpsUtilService();
+        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
+        InternalTestHelper.setInternalUserNumber(5);
+        TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
+
+        //When
+        Map<String, Location> result = tourGuideService.lastUsersLocation();
+        System.out.println(result);
+
+        //Then
+        Assert.assertEquals(5, result.size());
+    }
+
+    @Test
+    public void getNearbyAttractions() {
+
         //GIVEN
         GpsUtilService gpsUtil = new GpsUtilService();
-        TripDealService tripDealService= new TripDealService(new TripPricerService());
+
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentralService());
+
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
-        InternalTestHelper.setInternalUserNumber(0);
-        String userName = "internalUser1";
-        tourGuideService.getUser(userName).getUserPreferences().setNumberOfChildren(2);
-        int nbOfChildren = tourGuideService.getUser(userName).getUserPreferences().getNumberOfChildren();
+
+        UUID userId = UUID.randomUUID();
+        VisitedLocation visitedLocation = gpsUtil.getUserLocation(userId);
 
         //WHEN
-        List<Provider> listOfProvider = tripDealService.getTripDeals(tourGuideService.getUser(userName));
+        List<Attraction> nearByAttraction = tourGuideService.getNearByAttractions(visitedLocation);
 
         //THEN
-        assertNotNull(listOfProvider);
-        assertFalse(listOfProvider.isEmpty());
-
+        assertNotNull(nearByAttraction);
     }
 
 
