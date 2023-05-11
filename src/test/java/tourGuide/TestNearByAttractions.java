@@ -1,9 +1,10 @@
 package tourGuide;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.MockitoJUnitRunner;
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
@@ -14,10 +15,7 @@ import tourGuide.service.TourGuideService;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 public class TestNearByAttractions {
 
 
@@ -30,8 +28,8 @@ public class TestNearByAttractions {
 
         //Given
         Location location = new Location();
-        location.setLatitude(2000);
-        location.setLongitude(3000);
+        location.setLatitude(20);
+        location.setLongitude(30);
 
         List<Attraction> attractions = new ArrayList();
         Attraction attraction = new Attraction();
@@ -51,8 +49,10 @@ public class TestNearByAttractions {
         //When
         TourGuideService tourGuideService=new TourGuideService(gpsUtil,rewardsService);
         List<Attraction> result = tourGuideService.getNearByAttractions(visitedLocation);
+        System.out.println(result.get(0));
+
 
        //Then
-        assertTrue(result.isEmpty());
+        assert!result.isEmpty():"Il n'y a pas d'attraction à proximite";
     }
 }
