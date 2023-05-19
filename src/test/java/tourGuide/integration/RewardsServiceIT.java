@@ -20,7 +20,6 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @SpringBootTest
 public class RewardsServiceIT {
