@@ -8,9 +8,11 @@ import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
-import tourGuide.service.*;
+import tourGuide.service.GpsUtilService;
+import tourGuide.service.RewardCentralService;
+import tourGuide.service.RewardsService;
+import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
-
 
 import java.util.List;
 import java.util.Map;

@@ -2,7 +2,6 @@ package tourGuide.integration;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.VisitedLocation;
@@ -13,7 +12,7 @@ import java.util.UUID;
 
 @SpringBootTest
 public class GpsUtilServiceIT {
-        @Test
+    @Test
     public void notNullGetUserLocationResult() {
         GpsUtilService gpsUtilService = new GpsUtilService();
 
@@ -39,6 +38,6 @@ public class GpsUtilServiceIT {
 
         //THEN
         // tester avec NotEqual 0
-        Assert.assertNotEquals(0,result.size());
+        Assert.assertNotEquals(0, result.size());
     }
 }

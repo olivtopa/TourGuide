@@ -2,7 +2,8 @@ package tourGuide.integration;
 
 import org.junit.Test;
 import tourGuide.NewTripPricer.Provider;
-import tourGuide.service.*;
+import tourGuide.service.TripDealService;
+import tourGuide.service.TripPricerService;
 import tourGuide.user.User;
 
 import java.util.List;
@@ -15,8 +16,8 @@ public class TripDealServiceIT {
     @Test
     public void getTripDeals() {
         //GIVEN
-        TripDealService tripDealService= new TripDealService(new TripPricerService());
-        User user = new User(UUID.randomUUID(),"","","");
+        TripDealService tripDealService = new TripDealService(new TripPricerService());
+        User user = new User(UUID.randomUUID(), "", "", "");
         user.getUserPreferences().setNumberOfChildren(2);
 
         //WHEN

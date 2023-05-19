@@ -10,7 +10,6 @@ import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
 import tourGuide.service.GpsUtilService;
-import tourGuide.service.RewardCentralService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
@@ -18,7 +17,6 @@ import tourGuide.user.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -31,8 +29,9 @@ public class TourGuideServiceTest {
     GpsUtilService gpsUtil;
     @Mock
     RewardsService rewardsService;
+
     @Test
-    public void attractionsAreNotNearUsers(){
+    public void attractionsAreNotNearUsers() {
 
         //Given
         Location location = new Location();
@@ -45,21 +44,21 @@ public class TourGuideServiceTest {
         attraction.setLongitude(20);
         attractions.add(attraction);
 
-        VisitedLocation visitedLocation =new VisitedLocation();
+        VisitedLocation visitedLocation = new VisitedLocation();
         visitedLocation.setLocation(location);
-        System.out.println("Location: "+location.getLatitude()+" , "+location.getLongitude());
-        System.out.println(("Attraction: "+attraction.getLocation().getLongitude() + " , "+attraction.getLocation().getLatitude()));
+        System.out.println("Location: " + location.getLatitude() + " , " + location.getLongitude());
+        System.out.println(("Attraction: " + attraction.getLocation().getLongitude() + " , " + attraction.getLocation().getLatitude()));
 
         Mockito.when(gpsUtil.getAttractions()).thenReturn(attractions);
         Mockito.when(rewardsService.isWithinAttractionProximity(attraction, visitedLocation.getLocation())).
                 thenReturn(false);
 
         //When
-        TourGuideService tourGuideService=new TourGuideService(gpsUtil,rewardsService);
+        TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
         List<Attraction> result = tourGuideService.getNearByAttractions(visitedLocation);
 
 
-       //Then
+        //Then
         assertTrue(result.isEmpty());
     }
 

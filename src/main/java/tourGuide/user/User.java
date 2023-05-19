@@ -1,12 +1,12 @@
 package tourGuide.user;
 
+import tourGuide.NewTripPricer.Provider;
+import tourGuide.newGpsUtil.VisitedLocation;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
-import tourGuide.NewTripPricer.Provider;
-import tourGuide.newGpsUtil.VisitedLocation;
 
 
 public class User {

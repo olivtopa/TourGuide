@@ -15,7 +15,7 @@ public class RewardCentralService {
 
     public interface GetRewardPoints {
         @GET("/getRewardPoints")
-        Call <Integer> rewardPoints (@Query("attractionId") UUID attractionId, @Query("userId") UUID userId);
+        Call<Integer> rewardPoints(@Query("attractionId") UUID attractionId, @Query("userId") UUID userId);
     }
 
     Retrofit rewardRetrofit = new Retrofit.Builder()
@@ -27,10 +27,10 @@ public class RewardCentralService {
         GetRewardPoints retrofitRewardPoints = rewardRetrofit.create(GetRewardPoints.class);
 
         try {
-            Call<Integer> callRewardPoints = retrofitRewardPoints.rewardPoints(attractionID,userId);
+            Call<Integer> callRewardPoints = retrofitRewardPoints.rewardPoints(attractionID, userId);
             return callRewardPoints.execute().body();
         } catch (IOException e) {
-            throw  new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 }

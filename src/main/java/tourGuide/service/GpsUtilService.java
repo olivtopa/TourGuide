@@ -46,7 +46,7 @@ public class GpsUtilService {
         GetAttractions retrofitAttractions = tourGuideGPS.create(GetAttractions.class);
         try {
             Call<List<Attraction>> callAttractionsSync = retrofitAttractions.getAttractions();
-           return callAttractionsSync.execute().body();
+            return callAttractionsSync.execute().body();
         } catch (IOException e) {
 
             throw new RuntimeException(e);

@@ -1,24 +1,23 @@
 package tourGuide.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.*;
-
-
 import org.springframework.stereotype.Service;
-
 import tourGuide.newGpsUtil.Attraction;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
-
 import tourGuide.user.User;
 import tourGuide.user.UserReward;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Service
 public class RewardsService {
     private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
     private GpsUtilService gpsUtil;
-      private List<Attraction> attractions;
+    private List<Attraction> attractions;
 
 
     private final ExecutorService executor = Executors.newFixedThreadPool(1000);
@@ -35,7 +34,7 @@ public class RewardsService {
         this.rewardsCentralService = rewardCentralService;
     }
 
-     public void setProximityBuffer(int proximityBuffer) {
+    public void setProximityBuffer(int proximityBuffer) {
         this.proximityBuffer = proximityBuffer;
     }
 
@@ -54,7 +53,8 @@ public class RewardsService {
                     }
                 }
             });
-        };
+        }
+        ;
     }
 
     public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
@@ -82,7 +82,8 @@ public class RewardsService {
         double statuteMiles = STATUTE_MILES_PER_NAUTICAL_MILE * nauticalMiles;
         return statuteMiles;
     }
-// Lazi Init pour eviter l'init a chaque instantiation de la classe
+
+    // Lazi Init pour eviter l'init a chaque instantiation de la classe
     private List<Attraction> getAttractions() {
         if (attractions != null) {
             return attractions;

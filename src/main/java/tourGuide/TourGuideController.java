@@ -1,15 +1,9 @@
 package tourGuide;
 
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import tourGuide.NewTripPricer.Provider;
 import tourGuide.newGpsUtil.Location;
 import tourGuide.newGpsUtil.VisitedLocation;
@@ -17,6 +11,10 @@ import tourGuide.service.TourGuideService;
 import tourGuide.service.TripDealService;
 import tourGuide.user.User;
 import tourGuide.user.UserPreferences;
+
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 
 @RestController

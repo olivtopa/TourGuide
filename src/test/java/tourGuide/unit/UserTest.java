@@ -20,7 +20,7 @@ public class UserTest {
         UserPreferences newPreferences = new UserPreferences();
         newPreferences.setNumberOfChildren(4);
 
-        User user = new User(UUID.randomUUID(),"","","");
+        User user = new User(UUID.randomUUID(), "", "", "");
 
         //WHEN
         user.setUserPreferences(newPreferences);

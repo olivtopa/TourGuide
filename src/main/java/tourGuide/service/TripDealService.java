@@ -9,9 +9,10 @@ import java.util.List;
 @Service
 public class TripDealService {
 
-    public TripDealService(TripPricerService tripPricerService){
+    public TripDealService(TripPricerService tripPricerService) {
         this.tripPricerService = tripPricerService;
     }
+
     private final TripPricerService tripPricerService;
     private static final String tripPricerApiKey = "test-server-api-key";
 

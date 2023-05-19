@@ -1,9 +1,6 @@
 package tourGuide.newGpsUtil;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import tourGuide.service.TourGuideService;
-
 public class Location {
 
     private double longitude;

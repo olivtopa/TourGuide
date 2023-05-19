@@ -1,23 +1,9 @@
 package tourGuide.service;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-import tourGuide.NewTripPricer.Provider;
 import tourGuide.OutputAttraction;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.newGpsUtil.Attraction;
@@ -27,6 +13,16 @@ import tourGuide.tracker.Tracker;
 import tourGuide.user.User;
 import tourGuide.user.UserPreferences;
 import tourGuide.user.UserReward;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Service
@@ -138,7 +134,7 @@ public class TourGuideService {
             output.setLongitude(distanceOfAttractionList.get(i).getKey().getLocation().getLongitude());
             output.setLatitude(distanceOfAttractionList.get(i).getKey().getLocation().getLatitude());
             output.setDistance(distanceOfAttractionList.get(i).getValue());
-            output.setRewardsPoint(rewardCentralService.getRewardPoints(attractions.get(i).getAttractionId(),getUser(userName).getUserId()));
+            output.setRewardsPoint(rewardCentralService.getRewardPoints(attractions.get(i).getAttractionId(), getUser(userName).getUserId()));
             output.setAttraction(distanceOfAttractionList.get(i).getKey());
             outputList.add(i, output);
         }

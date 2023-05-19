@@ -4,9 +4,9 @@ import java.util.UUID;
 
 public class Provider {
 
-    private   String name;
-    private   double price;
-    private   UUID tripId;
+    private String name;
+    private double price;
+    private UUID tripId;
 
     public String getName() {
         return name;
