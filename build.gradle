@@ -24,9 +24,6 @@ bootJar {
 repositories {
     mavenCentral()
     flatDir {
-        dirs 'libs'
-    }
-    flatDir {
         dirs 'newGpsUtil'
     }
 }
