@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  tourguide:
+    image: tourguide:1.0.0
+    depends_on:
+      - tourguidetrippricer
+      - tourguidegps
+      - tourguidereward
+
+  tourguidetrippricer:
+    image: trippricer:1.0.0
+    network_mode: host
+
+  tourguidegps:
+    image: tourguidegps:1.0.0
+    network_mode: host
+
+  tourguidereward:
+    image: rewardcentral:1.0.0
+    network_mode: host
